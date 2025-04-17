@@ -2,15 +2,17 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  mode: 'production',
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[contenthash].js',
-    chunkFilename: '[name].[contenthash].js',
+    filename: 'static/js/[name].[contenthash].js',
+    chunkFilename: 'static/js/[name].[contenthash].js',
     publicPath: '/',
     clean: true
   },
   optimization: {
+    minimize: true,
     splitChunks: {
       chunks: 'all',
       minSize: 20000,
@@ -45,7 +47,7 @@ module.exports = {
         test: /\.(png|jpe?g|gif|svg)$/i,
         type: 'asset/resource',
         generator: {
-          filename: 'images/[name].[hash][ext]'
+          filename: 'static/media/[name].[hash][ext]'
         }
       }
     ]
@@ -54,13 +56,15 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     fallback: {
       "path": require.resolve("path-browserify"),
-      "fs": false
+      "fs": false,
+      "crypto": false
     }
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html',
       filename: 'index.html',
+      inject: true,
       minify: {
         removeComments: true,
         collapseWhitespace: true,
