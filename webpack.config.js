@@ -77,6 +77,7 @@ module.exports = {
       directory: path.join(__dirname, 'public')
     },
     port: 3000,
-    hot: true
+    hot: true,
+    open: true
   }
 }; 
