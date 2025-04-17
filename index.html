@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dhruv Engineers - Precision Machining & Fabrication</title>
+    <link rel="icon" type="image/png" href="C:\Users\yadav\DhruvEngineers\src\assets\images\Logo.png">
+    <link rel="apple-touch-icon" href="C:\Users\yadav\DhruvEngineers\src\assets\images\Logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;600&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -18,10 +20,10 @@
             <nav>
                 <ul>
                     <li><a href="#about">About</a></li>
-                    <li><a href="#services">Services</a></li>
+                    <li><a href="services.html">Services</a></li>
                     <li><a href="#machinery">Machinery</a></li>
                     <li><a href="#clients">Clients</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -69,29 +71,25 @@
         </div>
     </section>
 
-    <!-- SECTION 3: Services We Offer -->
-    <section id="services" class="services-section">
+    <!-- SECTION 3: Services Brief Overview -->
+    <section id="services" class="services-brief-section">
         <div class="container">
-            <h2 class="animate-on-scroll fade-in">Services We Offer</h2>
-            <div class="services-columns">
-                <div class="service-column animate-on-scroll fade-in-left" style="animation-delay: 0.1s;">
+            <h2 class="animate-on-scroll fade-in">Our Services</h2>
+            <p class="services-intro animate-on-scroll fade-in" style="animation-delay: 0.2s;">
+                We offer comprehensive machine shop work and fabrication services to meet your industrial needs.
+            </p>
+            <div class="services-highlights">
+                <div class="service-highlight animate-on-scroll fade-in-left" style="animation-delay: 0.1s;">
                     <div class="service-icon machine-shop-icon"></div>
                     <h3>Machine Shop Work</h3>
-                    <ul>
-                        <li>Turning, Milling, Drilling, Tapping</li>
-                        <li>CNC Lathe Precision Jobs</li>
-                        <li>VMC Precision Jobs</li>
-                    </ul>
+                    <p>Precision machining including turning, milling, CNC operations, and more.</p>
+                    <a href="services.html#machine-shop" class="service-link">Learn More &rarr;</a>
                 </div>
-                <div class="service-column animate-on-scroll fade-in-right" style="animation-delay: 0.3s;">
+                <div class="service-highlight animate-on-scroll fade-in-right" style="animation-delay: 0.3s;">
                     <div class="service-icon fabrication-icon"></div>
                     <h3>Fabrication Services</h3>
-                    <ul>
-                        <li>SS Tanks (SS 310, 304, 316)</li>
-                        <li>Chimneys, Trolleys, Hoppers</li>
-                        <li>Cabinets, Frames</li>
-                        <li>Custom MS Brackets & Support Structures</li>
-                    </ul>
+                    <p>Custom fabrication of SS tanks, chimneys, trolleys, and support structures.</p>
+                    <a href="services.html#fabrication" class="service-link">Learn More &rarr;</a>
                 </div>
             </div>
         </div>
@@ -175,7 +173,7 @@
         <div class="container">
             <h2 class="animate-on-scroll fade-in">Let's Build Something Together.</h2>
             <div class="animate-on-scroll fade-in-up" style="animation-delay: 0.2s;">
-                <a href="#contact" class="cta-button">Schedule a Consultation</a>
+                <a href="contact.html" class="cta-button">Schedule a Consultation</a>
                 <a href="mailto:dhruvengineers1@gmail.com" class="cta-button secondary">Email Us</a>
             </div>
         </div>
@@ -184,11 +182,46 @@
     <!-- Footer -->
     <footer class="main-footer">
         <div class="container">
-            <p><strong>Dhruv Engineers</strong></p>
-            <p>Address: A65, A64 Oshiya Mata Compound Pipe Line Road Kalher Bhiwandi (421302)</p>
-            <p>GST No: 27ALTPP8679G1Z1</p>
-            <p>Email: <a href="mailto:dhruvengineers1@gmail.com">dhruvengineers1@gmail.com</a></p>
-            <p class="tagline"><em>Serving quality since 1998</em></p>
+            <div class="footer-content">
+                <div class="footer-column company-info">
+                    <h4 class="company-name">Dhruv Engineers</h4>
+                    <p class="footer-tagline">Precision Machining & Fabrication Excellence Since 1998</p>
+                </div>
+                
+                <div class="footer-column contact-info">
+                    <h4>Contact Information</h4>
+                    <ul class="footer-contact-list">
+                        <li><i class="icon-location"></i>A65, A64 Oshiya Mata Compound Pipe Line Road<br>Kalher, Bhiwandi (421302)</li>
+                        <li><i class="icon-phone"></i><a href="tel:+919876543210">+91 98765 43210</a></li>
+                        <li><i class="icon-email"></i><a href="mailto:dhruvengineers1@gmail.com">dhruvengineers1@gmail.com</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column quick-links">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#machinery">Machinery</a></li>
+                        <li><a href="#clients">Our Clients</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="gst-info">
+                    <span class="footer-gst">GST No: 27ALTPP8679G1Z1</span>
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-icon" aria-label="Facebook"><i class="icon-facebook"></i></a>
+                    <a href="#" class="social-icon" aria-label="LinkedIn"><i class="icon-linkedin"></i></a>
+                    <a href="#" class="social-icon" aria-label="WhatsApp"><i class="icon-whatsapp"></i></a>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2023 Dhruv Engineers. All Rights Reserved.</p>
+                </div>
+            </div>
         </div>
     </footer>
 

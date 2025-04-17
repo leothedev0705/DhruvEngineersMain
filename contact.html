@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Dhruv Engineers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;600&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Add Font Awesome for better icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="main-header">
+        <div class="container">
+            <span class="logo">Dhruv Engineers</span>
+            <nav>
+                <ul>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="index.html#machinery">Machinery</a></li>
+                    <li><a href="index.html#clients">Clients</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Contact Us</h1>
+            <p class="subheadline">Get in touch for your precision machining and fabrication needs</p>
+        </div>
+    </section>
+
+    <!-- Contact Information Section -->
+    <section class="contact-main-section">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- Contact Details Column -->
+                <div class="contact-details-column">
+                    <h2 class="animate-on-scroll fade-in">Reach Out to Us</h2>
+                    <p class="animate-on-scroll fade-in" style="animation-delay: 0.1s;">
+                        We welcome your inquiries and look forward to discussing how we can meet your precision machining and fabrication needs.
+                    </p>
+                    
+                    <div class="contact-info-items">
+                        <div class="contact-info-item animate-on-scroll fade-in-left" style="animation-delay: 0.2s;">
+                            <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+                            <div class="contact-text">
+                                <h3>Our Location</h3>
+                                <p>A65, A64 Oshiya Mata Compound<br>Pipe Line Road, Kalher<br>Bhiwandi (421302)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item animate-on-scroll fade-in-left" style="animation-delay: 0.3s;">
+                            <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+                            <div class="contact-text">
+                                <h3>Phone Number</h3>
+                                <p><a href="tel:+919876543210">+91 98765 43210</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item animate-on-scroll fade-in-left" style="animation-delay: 0.4s;">
+                            <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                            <div class="contact-text">
+                                <h3>Email Address</h3>
+                                <p><a href="mailto:dhruvengineers1@gmail.com">dhruvengineers1@gmail.com</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item animate-on-scroll fade-in-left" style="animation-delay: 0.5s;">
+                            <div class="contact-icon"><i class="fa-solid fa-clock"></i></div>
+                            <div class="contact-text">
+                                <h3>Business Hours</h3>
+                                <p>Monday - Saturday: 9:00 AM - 6:00 PM<br>Sunday: Closed</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item animate-on-scroll fade-in-left" style="animation-delay: 0.6s;">
+                            <div class="contact-icon"><i class="fa-solid fa-file-invoice"></i></div>
+                            <div class="contact-text">
+                                <h3>GST Information</h3>
+                                <p>GST No: 27ALTPP8679G1Z1</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-connect animate-on-scroll fade-in" style="animation-delay: 0.7s;">
+                        <h3>Connect With Us</h3>
+                        <div class="social-links">
+                            <a href="#" class="social-icon" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                            <a href="#" class="social-icon" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form Column -->
+                <div class="contact-form-column animate-on-scroll fade-in-right">
+                    <div class="contact-form-container">
+                        <h2>Send Us a Message</h2>
+                        <p>Fill out the form below, and we'll get back to you as soon as possible.</p>
+                        
+                        <!-- Form submission status messages -->
+                        <div id="formSuccess" class="form-message success-message" style="display: none;">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <p>Your message has been sent successfully! We'll get back to you soon.</p>
+                        </div>
+                        
+                        <div id="formError" class="form-message error-message" style="display: none;">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <p>There was an error sending your message. Please try again or contact us directly.</p>
+                        </div>
+                        
+                        <form id="contactForm" class="contact-form" novalidate>
+                            <div class="form-group">
+                                <label for="name">Full Name <span class="required">*</span></label>
+                                <input type="text" id="name" name="name" required placeholder="Your full name" 
+                                       data-error="Please enter your name">
+                                <div class="error-feedback"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="company">Company Name</label>
+                                <input type="text" id="company" name="company" placeholder="Your company name (optional)">
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group half">
+                                    <label for="email">Email Address <span class="required">*</span></label>
+                                    <input type="email" id="email" name="email" required placeholder="Your email address"
+                                           data-error="Please enter a valid email address">
+                                    <div class="error-feedback"></div>
+                                </div>
+                                
+                                <div class="form-group half">
+                                    <label for="phone">Phone Number <span class="required">*</span></label>
+                                    <input type="tel" id="phone" name="phone" required placeholder="Your phone number"
+                                           data-error="Please enter your phone number">
+                                    <div class="error-feedback"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">Subject <span class="required">*</span></label>
+                                <input type="text" id="subject" name="subject" required placeholder="Subject of your inquiry"
+                                       data-error="Please enter a subject">
+                                <div class="error-feedback"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Message <span class="required">*</span></label>
+                                <textarea id="message" name="message" rows="5" required placeholder="Tell us about your project or inquiry"
+                                          data-error="Please enter your message"></textarea>
+                                <div class="error-feedback"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="consent" name="consent" required>
+                                    <label for="consent">I agree to be contacted regarding my inquiry <span class="required">*</span></label>
+                                    <div class="error-feedback"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <button type="submit" class="submit-button" id="submitBtn">
+                                    <span class="btn-text">Send Message</span>
+                                    <span class="btn-loader" style="display: none;">
+                                        <i class="fa-solid fa-spinner fa-spin"></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="container">
+            <h2 class="animate-on-scroll fade-in">Find Us Here</h2>
+            <div class="map-container animate-on-scroll fade-in">
+                <!-- Google Maps embed with actual location coordinates -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3767.0764889064!2d72.94775671490708!3d19.23858518699879!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7bba6d8777439%3A0x2aed76efb526bb02!2sKalher%2C%20Bhiwandi%2C%20Maharashtra%20421302!5e0!3m2!1sen!2sin!4v1620578953924!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column company-info">
+                    <h4 class="company-name">Dhruv Engineers</h4>
+                    <p class="footer-tagline">Precision Machining & Fabrication Excellence Since 1998</p>
+                </div>
+                
+                <div class="footer-column contact-info">
+                    <h4>Contact Information</h4>
+                    <ul class="footer-contact-list">
+                        <li><i class="fa-solid fa-location-dot"></i>A65, A64 Oshiya Mata Compound Pipe Line Road<br>Kalher, Bhiwandi (421302)</li>
+                        <li><i class="fa-solid fa-phone"></i><a href="tel:+919876543210">+91 98765 43210</a></li>
+                        <li><i class="fa-solid fa-envelope"></i><a href="mailto:dhruvengineers1@gmail.com">dhruvengineers1@gmail.com</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column quick-links">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="index.html#machinery">Machinery</a></li>
+                        <li><a href="index.html#clients">Our Clients</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="gst-info">
+                    <span class="footer-gst">GST No: 27ALTPP8679G1Z1</span>
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-icon" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2023 Dhruv Engineers. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Form validation and submission
+            const contactForm = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const btnLoader = submitBtn.querySelector('.btn-loader');
+            const formSuccess = document.getElementById('formSuccess');
+            const formError = document.getElementById('formError');
+            
+            // Input validation function
+            function validateInput(input) {
+                if (input.type === 'checkbox') {
+                    if (!input.checked) {
+                        showError(input, input.getAttribute('data-error') || 'This field is required');
+                        return false;
+                    }
+                    clearError(input);
+                    return true;
+                }
+                
+                if (input.hasAttribute('required') && !input.value.trim()) {
+                    showError(input, input.getAttribute('data-error') || 'This field is required');
+                    return false;
+                }
+                
+                if (input.type === 'email' && input.value.trim()) {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(input.value.trim())) {
+                        showError(input, 'Please enter a valid email address');
+                        return false;
+                    }
+                }
+                
+                if (input.type === 'tel' && input.value.trim()) {
+                    const phoneRegex = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/;
+                    if (!phoneRegex.test(input.value.trim().replace(/\s/g, ''))) {
+                        showError(input, 'Please enter a valid phone number');
+                        return false;
+                    }
+                }
+                
+                clearError(input);
+                return true;
+            }
+            
+            // Show error message
+            function showError(input, message) {
+                const formGroup = input.closest('.form-group');
+                const errorElement = formGroup.querySelector('.error-feedback');
+                input.classList.add('is-invalid');
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+            
+            // Clear error message
+            function clearError(input) {
+                const formGroup = input.closest('.form-group');
+                const errorElement = formGroup.querySelector('.error-feedback');
+                input.classList.remove('is-invalid');
+                errorElement.textContent = '';
+                errorElement.style.display = 'none';
+            }
+            
+            // Validate all inputs
+            function validateForm() {
+                const inputs = contactForm.querySelectorAll('input[required], textarea[required]');
+                let isValid = true;
+                
+                inputs.forEach(input => {
+                    if (!validateInput(input)) {
+                        isValid = false;
+                    }
+                });
+                
+                return isValid;
+            }
+            
+            // Add input event listeners for real-time validation
+            const formInputs = contactForm.querySelectorAll('input, textarea');
+            formInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    validateInput(this);
+                });
+                
+                input.addEventListener('blur', function() {
+                    if (this.hasAttribute('required') || this.value.trim()) {
+                        validateInput(this);
+                    }
+                });
+            });
+            
+            // Form submission
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Hide any previous messages
+                formSuccess.style.display = 'none';
+                formError.style.display = 'none';
+                
+                // Validate the form
+                if (!validateForm()) {
+                    return;
+                }
+                
+                // Show loading spinner
+                btnText.style.display = 'none';
+                btnLoader.style.display = 'inline-block';
+                submitBtn.disabled = true;
+                
+                // Collect form data
+                const formData = new FormData(contactForm);
+                const formDataJSON = {};
+                formData.forEach((value, key) => {
+                    formDataJSON[key] = value;
+                });
+                
+                // Simulate form submission - in production, replace with actual AJAX call
+                setTimeout(function() {
+                    try {
+                        // In a real scenario, you would send the data to your server
+                        // Using fetch or XMLHttpRequest
+                        console.log("Form data to send:", formDataJSON);
+                        
+                        /*
+                        // Example AJAX request (commented out as this is just a demo)
+                        fetch('your-server-endpoint.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(formDataJSON)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            // Handle successful response
+                            showSuccessMessage();
+                        })
+                        .catch(error => {
+                            // Handle error
+                            showErrorMessage();
+                        });
+                        */
+                        
+                        // For demo purposes, always show success
+                        showSuccessMessage();
+                    } catch (error) {
+                        showErrorMessage();
+                    }
+                }, 1500); // Simulate network delay
+            });
+            
+            function showSuccessMessage() {
+                // Reset form
+                contactForm.reset();
+                
+                // Show success message
+                formSuccess.style.display = 'flex';
+                
+                // Reset button
+                btnText.style.display = 'inline-block';
+                btnLoader.style.display = 'none';
+                submitBtn.disabled = false;
+                
+                // Scroll to the success message
+                formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    formSuccess.style.display = 'none';
+                }, 5000);
+            }
+            
+            function showErrorMessage() {
+                // Show error message
+                formError.style.display = 'flex';
+                
+                // Reset button
+                btnText.style.display = 'inline-block';
+                btnLoader.style.display = 'none';
+                submitBtn.disabled = false;
+                
+                // Scroll to the error message
+                formError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    </script>
+</body>
+</html> 

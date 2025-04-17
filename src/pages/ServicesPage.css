@@ -1,0 +1,352 @@
+@import '../styles/theme.css';
+
+.services-page {
+  padding-top: 80px;
+  background: var(--primary-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+
+.services-hero {
+  background: var(--gradient-dark);
+  padding: 6rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom: var(--border-teal);
+}
+
+.services-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 25%, transparent 25%),
+              linear-gradient(225deg, rgba(52, 152, 219, 0.1) 25%, transparent 25%);
+  background-size: 40px 40px;
+  opacity: 0.1;
+  animation: patternMove 20s linear infinite;
+}
+
+@keyframes patternMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
+}
+
+.services-hero .container {
+  position: relative;
+  z-index: 2;
+}
+
+.services-hero h1 {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(to right, var(--text-primary), var(--accent-teal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-subtitle {
+  font-size: 1.6rem;
+  color: var(--text-secondary);
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  opacity: 0.9;
+}
+
+.services-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.toggle-btn {
+  background: var(--gradient-light);
+  color: var(--text-primary);
+  border: var(--border-teal);
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-blue);
+}
+
+.toggle-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, var(--accent-teal), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.toggle-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.toggle-btn.active {
+  background: var(--gradient-dark);
+  border-color: var(--accent-teal);
+  box-shadow: var(--shadow-hover);
+}
+
+.toggle-btn.active::before {
+  opacity: 0.1;
+}
+
+.services-content {
+  padding: 5rem 0;
+  background: var(--gradient-light);
+  position: relative;
+  min-height: 600px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  padding: 2rem;
+}
+
+.service-card {
+  background: var(--gradient-dark);
+  padding: 3rem 2rem;
+  border-radius: 12px;
+  border: var(--border-teal);
+  box-shadow: var(--shadow-blue);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-teal), var(--text-primary), var(--accent-teal));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-hover);
+}
+
+.service-card:hover::before {
+  opacity: 1;
+}
+
+.service-icon {
+  font-size: 3.5rem;
+  margin-bottom: 2rem;
+  position: relative;
+  background: linear-gradient(to right, var(--text-primary), var(--accent-teal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.service-card h3 {
+  color: var(--text-primary);
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.service-card p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.service-details {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(100, 255, 218, 0.1);
+}
+
+.service-details ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.service-details li {
+  color: var(--text-secondary);
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.service-details li::before {
+  content: '→';
+  color: var(--accent-teal);
+}
+
+/* Machinery Specifications Section */
+.machinery-specs {
+  padding: 5rem 0;
+  background: var(--gradient-dark);
+  position: relative;
+  border-top: var(--border-teal);
+}
+
+.machinery-specs h2 {
+  color: var(--text-primary);
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  background: linear-gradient(to right, var(--text-primary), var(--accent-teal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.specs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.spec-card {
+  background: var(--gradient-light);
+  padding: 2rem;
+  border-radius: 12px;
+  border: var(--border-teal);
+  box-shadow: var(--shadow-blue);
+  transition: all 0.3s ease;
+}
+
+.spec-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.spec-card h3 {
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  background: linear-gradient(to right, var(--text-primary), var(--accent-teal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.spec-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.spec-card li {
+  color: var(--text-secondary);
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.spec-card li:last-child {
+  border-bottom: none;
+}
+
+.spec-card li::before {
+  content: '•';
+  color: var(--accent-teal);
+  font-size: 1.2rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+@media (max-width: 768px) {
+  .services-hero h1 {
+    font-size: 3rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+  }
+
+  .services-toggle {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 2rem;
+  }
+
+  .toggle-btn {
+    width: 100%;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+  }
+
+  .service-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .machinery-specs h2 {
+    font-size: 2rem;
+  }
+
+  .specs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .services-hero {
+    padding: 4rem 0;
+  }
+
+  .services-hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-card {
+    padding: 2rem 1rem;
+  }
+
+  .machinery-specs h2 {
+    font-size: 1.8rem;
+  }
+
+  .spec-card {
+    padding: 1.5rem;
+  }
+} 
