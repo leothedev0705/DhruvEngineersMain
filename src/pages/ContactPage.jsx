@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaIdCard, FaGlobe } from 'react-icons/fa';
 import './ContactPage.css';
-import logo from '../assets/images/logo.png';
+import logo from '../assets/images/Logo.png';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
