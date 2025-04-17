@@ -1,8 +1,15 @@
 /* --- Global Styles & Variables --- */
 :root {
+    --metallic-blue: #4682B4;
+    --metallic-light: #B0C4DE;
+    --metallic-dark: #27408B;
+    --metallic-highlight: #87CEEB;
+    --metallic-shadow: #2F4F4F;
+    --metallic-gradient: linear-gradient(145deg, #5c88b1, #385d87);
+    --metallic-button-gradient: linear-gradient(145deg, #5c88b1, #385d87);
+    --metallic-hover-gradient: linear-gradient(145deg, #385d87, #5c88b1);
+    --accent-color: #007bff;
     --dark-grey: #2c3e50; /* Darker, slightly blue-grey */
-    --accent-color: #007bff; /* Brighter, more standard blue */
-    /* --accent-color: #e67e22; */ /* Alternative: Punchy Orange */
     --light-grey: #f8f9fa; /* Lighter grey for backgrounds */
     --medium-grey: #e9ecef; /* For borders, subtle elements */
     --white: #ffffff;
@@ -14,6 +21,12 @@
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
     --shadow-md: 0 4px 10px rgba(0,0,0,0.1);
     --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+
+    --primary-color: #0066cc;
+    --secondary-color: #004d99;
+    --light-text: #fff;
+    --background-light: #f5f5f5;
+    --transition-speed: 0.3s;
 }
 
 html {
@@ -73,7 +86,8 @@ h2::after {
     transform: translateX(-50%);
     width: 80px;
     height: 4px;
-    background-color: var(--accent-color);
+    background: var(--metallic-gradient);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     border-radius: 2px;
 }
 
@@ -129,6 +143,7 @@ section:nth-child(even) {
     z-index: 1000;
     box-shadow: var(--shadow-md);
     transition: padding 0.3s ease;
+    backdrop-filter: blur(10px);
 }
 
 /* Shrink header on scroll - JS could enhance this */
@@ -180,41 +195,105 @@ section:nth-child(even) {
 .hero-section {
     color: var(--white);
     text-align: center;
-    padding: 0; 
-    min-height: 80vh; 
-    display: flex; 
+    padding: 0;
+    min-height: 80vh;
+    display: flex;
     align-items: center;
     justify-content: center;
-    position: relative; 
-    overflow: hidden; 
+    position: relative;
+    overflow: hidden;
 }
 
-/* Carousel container */
+/* Hero Carousel Styles */
 .hero-carousel {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.carousel-slides {
+    position: relative;
     width: 100%;
     height: 100%;
-    z-index: 1; /* Behind overlay and content */
 }
 
-/* Individual slides */
+/* Slide animations */
+@keyframes slideLeft {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideRight {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideLeftOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideRightOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
 .hero-slide {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Cover the area */
     opacity: 0;
-    transition: opacity 1s ease-in-out; /* Fade transition */
-    z-index: 1;
+    transform: translateX(100%);
+    transition: none;
 }
 
 .hero-slide.active {
     opacity: 1;
-    z-index: 2; /* Ensure active slide is on top */
+    transform: translateX(0);
+    z-index: 1;
+}
+
+.hero-slide.slide-left {
+    animation: slideLeft 2s ease-in-out forwards;
+}
+
+.hero-slide.slide-right {
+    animation: slideRight 2s ease-in-out forwards;
+}
+
+.hero-slide.slide-left-out {
+    animation: slideLeftOut 2s ease-in-out forwards;
+}
+
+.hero-slide.slide-right-out {
+    animation: slideRightOut 2s ease-in-out forwards;
 }
 
 /* Carousel Controls */
@@ -222,32 +301,24 @@ section:nth-child(even) {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 5; 
-    background-color: rgba(0, 0, 0, 0.3); /* Slightly more subtle background */
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.9);
     color: white;
-    border: none;
-    padding: 10px; /* Adjusted padding */
-    font-size: 1.5rem; /* Adjusted size */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
     cursor: pointer;
-    border-radius: 50%; 
-    transition: background-color 0.3s ease, opacity 0.3s ease;
-    line-height: 1;
-    opacity: 0.7; /* Make arrows visible by default, slightly transparent */
-    width: 40px; /* Adjusted size */
-    height: 40px; /* Adjusted size */
-    display: flex; 
+    font-size: 24px;
+    display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.3s ease-in-out;
 }
 
-/* Remove the hover dependency for showing arrows */
-/* .hero-carousel:hover .carousel-control {
-    opacity: 1;
-} */
-
 .carousel-control:hover {
-    background-color: rgba(0, 0, 0, 0.6); 
-    opacity: 1; /* Fully opaque on hover */
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) scale(1.1);
 }
 
 .carousel-control.prev {
@@ -258,87 +329,57 @@ section:nth-child(even) {
     right: 20px;
 }
 
-/* Overlay (replaces ::before pseudo-element for simplicity with carousel) */
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)); /* Gradient overlay */
-    z-index: 3; /* Above carousel, below content */
-}
-
-/* Content container needs higher z-index */
+/* Right side content with metallic blue */
 .hero-content {
     position: relative;
-    z-index: 4; /* Above overlay */
-    padding: 100px 20px; /* Add padding here instead of section */
+    z-index: 3;
+    padding: 60px 40px;
+    background: linear-gradient(145deg, #4682B4, #27408B);
+    border-radius: 10px;
+    margin: 0 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
 .hero-section h1 {
-    /* Styles already defined */
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
 .hero-section .subheadline {
-    font-size: 1.5rem;
-    margin-bottom: 2.5rem;
-    font-family: var(--alt-font);
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-    opacity: 0.9;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
 }
 
-.cta-button {
-    display: inline-block;
-    background-color: var(--accent-color);
-    color: var(--white);
-    padding: 15px 35px; /* Larger padding */
+/* CTA Button Styles */
+.hero-section .cta-button {
+    background: var(--white);
+    color: #4682B4;
+    padding: 15px 35px;
     font-size: 1.1rem;
     font-weight: 600;
-    font-family: var(--heading-font);
-    border: none;
-    border-radius: 50px; /* Pill shape */
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    margin: 10px;
+    border-radius: 50px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: var(--shadow-sm);
+    letter-spacing: 1px;
+    border: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    margin: 10px;
+    min-width: 200px;
 }
 
-.cta-button:hover {
-    background-color: darken(var(--accent-color), 10%);
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md);
-}
-
-.cta-button.secondary {
-    background-color: transparent;
-    border: 2px solid var(--white); /* White border for contrast on dark BG */
+.hero-section .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    background: #4682B4;
     color: var(--white);
 }
 
-.cta-button.secondary:hover {
-    background-color: var(--white);
-    color: var(--accent-color);
-    border-color: var(--white);
-}
-
-/* Secondary button on light backgrounds */
-.cta-section .cta-button.secondary,
-.some-light-section .cta-button.secondary /* Example */
-{
-    border-color: var(--accent-color);
-    color: var(--accent-color);
-}
-
-.cta-section .cta-button.secondary:hover,
-.some-light-section .cta-button.secondary:hover
-{
-    background-color: var(--accent-color);
-    color: var(--white);
+.hero-section .cta-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
 /* --- About Section --- */
@@ -426,23 +467,21 @@ section:nth-child(even) {
     font-size: 1.4em;
 }
 
-/* Service icons (using background for easy replacement) */
+/* Service icons with emojis */
 .service-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
     display: block;
-    margin: 0 auto 1.5rem auto;
-    width: 60px;
-    height: 60px;
-    background-color: var(--accent-color-light); /* Placeholder color */
-    border-radius: 50%;
-    background-size: 60%;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.8;
+    text-align: center;
 }
 
-/* Add URLs for actual icons */
-/* .machine-shop-icon { background-image: url('assets/icon-machine.svg'); } */
-/* .fabrication-icon { background-image: url('assets/icon-fabrication.svg'); } */
+.machine-shop-icon::before {
+    content: '⚙️';
+}
+
+.fabrication-icon::before {
+    content: '🏭';
+}
 
 /* --- Machinery Section --- */
 .machinery-section p {
@@ -564,84 +603,161 @@ section:nth-child(even) {
 
 /* --- CTA Section --- */
 .cta-section {
-    background: linear-gradient(135deg, var(--accent-color), darken(var(--accent-color), 15%));
+    background: linear-gradient(135deg, #2c3e50, #3498db);
     color: var(--white);
     text-align: center;
-    padding: 100px 0;
+    padding: 80px 0;
+    position: relative;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(255,255,255,0.05) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.05) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.05) 75%);
+    background-size: 20px 20px;
+    opacity: 0.5;
+}
+
+.cta-section .container {
+    position: relative;
+    z-index: 2;
 }
 
 .cta-section h2 {
     color: var(--white);
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-    margin-bottom: 2.5rem; /* Increased margin */
+    margin-bottom: 2.5rem;
+    font-size: 2.8rem;
 }
 
-/* Adjust H2 underline for dark background */
 .cta-section h2::after {
-    background-color: var(--white);
+    background: var(--white);
+    height: 3px;
+    width: 60px;
 }
 
 .cta-section .cta-button {
-    background-color: var(--white);
-    color: var(--accent-color);
-    border: 2px solid var(--white);
+    background: var(--white);
+    color: #2c3e50;
+    border: none;
+    padding: 15px 35px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    margin: 10px;
 }
 
 .cta-section .cta-button:hover {
-    background-color: transparent;
-    color: var(--white);
-    transform: translateY(-3px) scale(1.03); /* Add scale effect */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    background: #fff;
+}
+
+.cta-section .cta-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
 .cta-section .cta-button.secondary {
-    background-color: transparent;
-    border: 2px solid var(--white); /* Ensure border is white */
-    color: var(--white); /* Ensure text is white */
+    background: transparent;
+    border: 2px solid var(--white);
+    color: var(--white);
+    box-shadow: none;
 }
 
 .cta-section .cta-button.secondary:hover {
-    background-color: var(--white);
-    color: var(--accent-color);
+    background: rgba(255,255,255,0.1);
+    border-color: var(--white);
+    transform: translateY(-2px);
+}
+
+.cta-section .cta-button.secondary:active {
+    transform: translateY(1px);
 }
 
 /* --- Footer --- */
 .main-footer {
-    background-color: var(--dark-grey);
-    color: #bdc3c7; /* Lighter grey for footer text */
-    text-align: center;
-    padding: 40px 0 20px 0;
-    font-size: 0.95em;
+    background: #1a2634;
+    color: #e5e5e5;
+    padding: 60px 0 30px;
+    position: relative;
 }
 
 .main-footer .container {
-    max-width: 700px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-.main-footer p {
-    margin-bottom: 0.75rem;
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
-.main-footer strong {
+.company-info {
+    margin-bottom: 2rem;
+}
+
+.company-name {
+    font-size: 2rem;
+    font-weight: 700;
     color: var(--white);
+    margin-bottom: 1rem;
 }
 
-.main-footer a {
-    color: var(--white);
-    text-decoration: none; /* Remove underline */
-    border-bottom: 1px dotted #7f8c8d;
-    transition: color 0.3s ease, border-color 0.3s ease;
+.footer-address {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #b3b3b3;
+    max-width: 600px;
+    margin: 0 auto 1rem;
 }
 
-.main-footer a:hover {
-    color: var(--accent-color);
-    border-bottom-color: var(--accent-color);
+.footer-contact {
+    margin: 1.5rem 0;
 }
 
-.main-footer .tagline {
-    margin-top: 2rem;
+.footer-contact a {
+    color: #4682B4;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-weight: 500;
+}
+
+.footer-contact a:hover {
+    color: #6ca0d1;
+}
+
+.footer-gst {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+    color: #888;
+}
+
+.footer-tagline {
     font-style: italic;
-    color: #7f8c8d;
-    font-size: 0.9em;
+    color: #666;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.9rem;
 }
 
 /* --- Animations --- */
@@ -717,6 +833,39 @@ section:nth-child(even) {
         font-size: 1rem;
     }
     .client-logos { animation-duration: 25s; } /* Speed up scroll slightly on smaller screens */
+
+    .carousel-control {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .hero-carousel {
+        height: 80vh;
+    }
+
+    .hero-content {
+        padding: 40px 20px;
+        margin: 0 15px;
+    }
+
+    .main-footer {
+        padding: 40px 0 20px;
+    }
+
+    .company-name {
+        font-size: 1.8rem;
+    }
+
+    .footer-address {
+        font-size: 1rem;
+        padding: 0 20px;
+    }
+
+    .cta-button {
+        min-width: 180px;
+        padding: 12px 25px;
+    }
 }
 
 @media (max-width: 576px) {
@@ -751,4 +900,71 @@ section:nth-child(even) {
     .client-logo img { max-height: 40px; }
 
     .footer { font-size: 0.9rem; }
+
+    .hero-carousel {
+        height: 60vh;
+    }
+
+    .main-footer {
+        padding: 30px 0 15px;
+    }
+
+    .company-name {
+        font-size: 1.5rem;
+    }
+
+    .footer-address {
+        font-size: 0.9rem;
+    }
+
+    .footer-gst {
+        padding: 8px 15px;
+        font-size: 0.85rem;
+    }
+
+    .cta-button {
+        min-width: 160px;
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content {
+        padding: 30px 15px;
+        margin: 0 10px;
+    }
+    
+    .carousel-control {
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+    }
+
+    .hero-section h1 {
+        font-size: 2.2rem;
+    }
+
+    .main-footer {
+        padding: 30px 0 15px;
+    }
+
+    .company-name {
+        font-size: 1.5rem;
+    }
+
+    .footer-address {
+        font-size: 0.9rem;
+    }
+
+    .footer-gst {
+        padding: 8px 15px;
+        font-size: 0.85rem;
+    }
+
+    .cta-button {
+        min-width: 160px;
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
 } 
