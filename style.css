@@ -1,0 +1,754 @@
+/* --- Global Styles & Variables --- */
+:root {
+    --dark-grey: #2c3e50; /* Darker, slightly blue-grey */
+    --accent-color: #007bff; /* Brighter, more standard blue */
+    /* --accent-color: #e67e22; */ /* Alternative: Punchy Orange */
+    --light-grey: #f8f9fa; /* Lighter grey for backgrounds */
+    --medium-grey: #e9ecef; /* For borders, subtle elements */
+    --white: #ffffff;
+    --text-color: #34495e; /* Softer dark grey for text */
+    --heading-font: 'Poppins', sans-serif;
+    --body-font: 'Inter', sans-serif;
+    --alt-font: 'Montserrat', sans-serif;
+
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 10px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px; /* Base font size */
+    /* Add padding for fixed header (adjust value if header height changes) */
+    scroll-padding-top: 70px; 
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--body-font);
+    color: var(--text-color);
+    background-color: var(--white);
+    line-height: 1.7; /* Slightly increased line height */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    max-width: 1140px; /* Slightly wider container */
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--heading-font);
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--dark-grey);
+    line-height: 1.3;
+}
+
+h1 {
+    font-size: 3.2rem; /* Larger H1 */
+    font-weight: 700;
+    color: var(--white);
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* Subtle text shadow */
+}
+
+h2 {
+    font-size: 2.5rem; /* Larger H2 */
+    text-align: center;
+    margin-bottom: 3rem; /* More space below H2 */
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+/* Underline effect for H2 */
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: var(--accent-color);
+    border-radius: 2px;
+}
+
+h3 {
+    font-size: 1.75rem;
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+}
+
+p {
+    margin-bottom: 1.5rem; /* More space between paragraphs */
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: darken(var(--accent-color), 15%);
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    margin-bottom: 0.75rem;
+}
+
+section {
+    padding: 80px 0; /* More vertical padding */
+    overflow: hidden; /* Prevent horizontal scrollbars from animations */
+}
+
+section:nth-child(even) {
+    background-color: var(--light-grey);
+}
+
+/* --- Header/Navigation --- */
+.main-header {
+    background-color: var(--white);
+    color: var(--dark-grey);
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-md);
+    transition: padding 0.3s ease;
+}
+
+/* Shrink header on scroll - JS could enhance this */
+/* body.scrolled .main-header { padding: 10px 0; } */
+
+.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: var(--heading-font);
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--dark-grey);
+}
+
+.main-header nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-header nav ul li {
+    margin-left: 25px; /* More space between nav items */
+    margin-bottom: 0; /* Reset margin-bottom for li */
+}
+
+.main-header nav ul li a {
+    color: var(--dark-grey);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.main-header nav ul li a:hover,
+.main-header nav ul li a.active /* Add 'active' class with JS if needed */
+{
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    color: var(--white);
+    text-align: center;
+    padding: 0; 
+    min-height: 80vh; 
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    position: relative; 
+    overflow: hidden; 
+}
+
+/* Carousel container */
+.hero-carousel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Behind overlay and content */
+}
+
+/* Individual slides */
+.hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover the area */
+    opacity: 0;
+    transition: opacity 1s ease-in-out; /* Fade transition */
+    z-index: 1;
+}
+
+.hero-slide.active {
+    opacity: 1;
+    z-index: 2; /* Ensure active slide is on top */
+}
+
+/* Carousel Controls */
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5; 
+    background-color: rgba(0, 0, 0, 0.3); /* Slightly more subtle background */
+    color: white;
+    border: none;
+    padding: 10px; /* Adjusted padding */
+    font-size: 1.5rem; /* Adjusted size */
+    cursor: pointer;
+    border-radius: 50%; 
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    line-height: 1;
+    opacity: 0.7; /* Make arrows visible by default, slightly transparent */
+    width: 40px; /* Adjusted size */
+    height: 40px; /* Adjusted size */
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+/* Remove the hover dependency for showing arrows */
+/* .hero-carousel:hover .carousel-control {
+    opacity: 1;
+} */
+
+.carousel-control:hover {
+    background-color: rgba(0, 0, 0, 0.6); 
+    opacity: 1; /* Fully opaque on hover */
+}
+
+.carousel-control.prev {
+    left: 20px;
+}
+
+.carousel-control.next {
+    right: 20px;
+}
+
+/* Overlay (replaces ::before pseudo-element for simplicity with carousel) */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)); /* Gradient overlay */
+    z-index: 3; /* Above carousel, below content */
+}
+
+/* Content container needs higher z-index */
+.hero-content {
+    position: relative;
+    z-index: 4; /* Above overlay */
+    padding: 100px 20px; /* Add padding here instead of section */
+}
+
+.hero-section h1 {
+    /* Styles already defined */
+}
+
+.hero-section .subheadline {
+    font-size: 1.5rem;
+    margin-bottom: 2.5rem;
+    font-family: var(--alt-font);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.9;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: var(--white);
+    padding: 15px 35px; /* Larger padding */
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: var(--heading-font);
+    border: none;
+    border-radius: 50px; /* Pill shape */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: var(--shadow-sm);
+}
+
+.cta-button:hover {
+    background-color: darken(var(--accent-color), 10%);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.cta-button.secondary {
+    background-color: transparent;
+    border: 2px solid var(--white); /* White border for contrast on dark BG */
+    color: var(--white);
+}
+
+.cta-button.secondary:hover {
+    background-color: var(--white);
+    color: var(--accent-color);
+    border-color: var(--white);
+}
+
+/* Secondary button on light backgrounds */
+.cta-section .cta-button.secondary,
+.some-light-section .cta-button.secondary /* Example */
+{
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.cta-section .cta-button.secondary:hover,
+.some-light-section .cta-button.secondary:hover
+{
+    background-color: var(--accent-color);
+    color: var(--white);
+}
+
+/* --- About Section --- */
+.about-section .container {
+    max-width: 900px;
+    text-align: center;
+}
+
+.about-section .about-description {
+    font-size: 1.15rem;
+    color: #555;
+    margin-bottom: 3rem;
+}
+
+.about-section .highlights {
+    list-style: none; /* Remove default bullets */
+    padding-left: 0;
+    text-align: left;
+    display: inline-block;
+    columns: 2; /* Create two columns for highlights */
+    column-gap: 40px;
+}
+
+.about-section .highlights li {
+    margin-bottom: 1rem;
+    position: relative;
+    padding-left: 25px; /* Space for custom icon */
+}
+
+/* Custom bullet style */
+.about-section .highlights li::before {
+    content: '\2713'; /* Checkmark icon */
+    position: absolute;
+    left: 0;
+    top: 2px;
+    color: var(--accent-color);
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* --- Services Section --- */
+.services-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 30px;
+}
+
+.service-column {
+    background-color: var(--white);
+    padding: 35px 30px; /* More padding */
+    border-radius: 8px;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-top: 4px solid var(--accent-color);
+}
+
+.service-column:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.service-column h3 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.6rem;
+}
+
+.service-column ul {
+    padding-left: 0;
+}
+
+.service-column li {
+    margin-bottom: 0.8rem;
+    padding-left: 20px;
+    position: relative;
+}
+
+/* Custom bullet for services */
+.service-column li::before {
+    content: '\2022'; /* Bullet point */
+    position: absolute;
+    left: 0;
+    top: -2px;
+    color: var(--accent-color);
+    font-size: 1.4em;
+}
+
+/* Service icons (using background for easy replacement) */
+.service-icon {
+    display: block;
+    margin: 0 auto 1.5rem auto;
+    width: 60px;
+    height: 60px;
+    background-color: var(--accent-color-light); /* Placeholder color */
+    border-radius: 50%;
+    background-size: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.8;
+}
+
+/* Add URLs for actual icons */
+/* .machine-shop-icon { background-image: url('assets/icon-machine.svg'); } */
+/* .fabrication-icon { background-image: url('assets/icon-fabrication.svg'); } */
+
+/* --- Machinery Section --- */
+.machinery-section p {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto 3rem auto;
+    font-size: 1.15rem;
+    color: #555;
+}
+
+.machinery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+    gap: 30px;
+}
+
+.machine-item {
+    background-color: var(--white);
+    border: 1px solid var(--medium-grey);
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    overflow: hidden; /* Keep image corners rounded */
+}
+
+.machine-item:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-5px);
+}
+
+.machine-item .machine-image {
+    display: block;
+    width: 100%;
+    height: 180px; /* Fixed height for image area */
+    background-color: var(--light-grey); /* Placeholder BG */
+    object-fit: cover; /* Scale the image nicely */
+    object-position: center;
+    border-bottom: 1px solid var(--medium-grey); /* Separator line */
+}
+
+/* Style for placeholder image itself */
+.machine-item img[src*="placeholder"] {
+    opacity: 0.5; /* Make placeholder visually distinct */
+}
+
+.machine-item .machine-name {
+    padding: 15px;
+    font-size: 1.1rem;
+}
+
+/* --- Clients Section --- */
+.clients-section {
+    background-color: var(--light-grey);
+    padding: 80px 0;
+}
+
+.client-logos-scroll-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin-top: 3rem;
+    /* Add fade effect at edges */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.client-logos {
+    display: flex;
+    width: max-content; /* Fit all logos in one line */
+    animation: scrollLogos 30s linear infinite;
+    /* Add pause on hover */
+    animation-play-state: running;
+}
+
+.client-logos-scroll-container:hover .client-logos {
+    animation-play-state: paused;
+}
+
+@keyframes scrollLogos {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        /* Scroll by half the width (since logos are duplicated) */
+        transform: translateX(-50%);
+    }
+}
+
+.client-logo {
+    display: flex; /* Use flex for alignment if using img */
+    align-items: center;
+    justify-content: center;
+    height: 80px; /* Adjust height as needed */
+    margin: 0 35px; /* Increased Space between logos */
+    filter: none; /* Remove grayscale by default */
+    opacity: 0.9; /* Increased default opacity */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.client-logo:hover {
+    /* filter: grayscale(0%); */ /* No filter change needed now */
+    opacity: 1;
+    transform: scale(1.05); /* Add slight scale on hover */
+}
+
+/* Style for actual img tags when added */
+.client-logo img {
+    max-height: 70px; /* Slightly larger logo size */
+    max-width: 160px;
+    object-fit: contain;
+}
+
+/* Style for placeholder logo image */
+.client-logo img[src*="placeholder"] {
+    opacity: 0.3;
+    filter: none; /* Don't double-apply grayscale */
+}
+
+/* --- CTA Section --- */
+.cta-section {
+    background: linear-gradient(135deg, var(--accent-color), darken(var(--accent-color), 15%));
+    color: var(--white);
+    text-align: center;
+    padding: 100px 0;
+}
+
+.cta-section h2 {
+    color: var(--white);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    margin-bottom: 2.5rem; /* Increased margin */
+}
+
+/* Adjust H2 underline for dark background */
+.cta-section h2::after {
+    background-color: var(--white);
+}
+
+.cta-section .cta-button {
+    background-color: var(--white);
+    color: var(--accent-color);
+    border: 2px solid var(--white);
+}
+
+.cta-section .cta-button:hover {
+    background-color: transparent;
+    color: var(--white);
+    transform: translateY(-3px) scale(1.03); /* Add scale effect */
+}
+
+.cta-section .cta-button.secondary {
+    background-color: transparent;
+    border: 2px solid var(--white); /* Ensure border is white */
+    color: var(--white); /* Ensure text is white */
+}
+
+.cta-section .cta-button.secondary:hover {
+    background-color: var(--white);
+    color: var(--accent-color);
+}
+
+/* --- Footer --- */
+.main-footer {
+    background-color: var(--dark-grey);
+    color: #bdc3c7; /* Lighter grey for footer text */
+    text-align: center;
+    padding: 40px 0 20px 0;
+    font-size: 0.95em;
+}
+
+.main-footer .container {
+    max-width: 700px;
+}
+
+.main-footer p {
+    margin-bottom: 0.75rem;
+}
+
+.main-footer strong {
+    color: var(--white);
+}
+
+.main-footer a {
+    color: var(--white);
+    text-decoration: none; /* Remove underline */
+    border-bottom: 1px dotted #7f8c8d;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.main-footer a:hover {
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
+}
+
+.main-footer .tagline {
+    margin-top: 2rem;
+    font-style: italic;
+    color: #7f8c8d;
+    font-size: 0.9em;
+}
+
+/* --- Animations --- */
+.animate-on-scroll {
+    opacity: 0;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, transform; /* Performance hint */
+}
+
+.animate-on-scroll.fade-in {
+    opacity: 0;
+}
+
+.animate-on-scroll.fade-in-up {
+    transform: translateY(30px);
+}
+
+.animate-on-scroll.fade-in-left {
+    transform: translateX(-30px);
+}
+
+.animate-on-scroll.fade-in-right {
+    transform: translateX(30px);
+}
+
+/* Style when element becomes visible */
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translate(0, 0); /* Reset transform */
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 992px) {
+    h1 { font-size: 2.8rem; }
+    h2 { font-size: 2.2rem; }
+    .container { max-width: 960px; }
+    .about-section .highlights { columns: 1; } /* Stack highlights */
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 2.4rem; }
+    h2 { font-size: 2rem; }
+    section { padding: 60px 0; }
+
+    .main-header {
+        padding: 10px 0;
+    }
+    .main-header .container {
+        flex-direction: column;
+        align-items: center; /* Center items */
+    }
+    .main-header nav {
+        margin-top: 10px;
+    }
+    .main-header nav ul li {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .hero-section {
+        padding: 120px 0;
+        min-height: 60vh;
+    }
+    .hero-section .subheadline { font-size: 1.3rem; }
+
+    .services-columns {
+        grid-template-columns: 1fr; /* Stack columns */
+    }
+    .machinery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    .cta-button {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+    .client-logos { animation-duration: 25s; } /* Speed up scroll slightly on smaller screens */
+}
+
+@media (max-width: 576px) {
+    html { font-size: 15px; }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.8rem; }
+    h2::after { width: 60px; height: 3px; } /* Smaller underline */
+
+    .main-header nav ul li {
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+    .main-header nav ul li a { font-size: 0.9rem; }
+
+    .hero-section {
+        padding: 100px 0;
+    }
+    .hero-section .subheadline { font-size: 1.1rem; }
+
+    .machinery-grid {
+        grid-template-columns: 1fr; /* Single column */
+    }
+    .machine-item .machine-image { height: 160px; }
+
+    .cta-button {
+        display: block; /* Stack buttons fully */
+        width: calc(100% - 20px);
+        margin: 10px auto;
+    }
+    .client-logos { animation-duration: 20s; } /* Faster scroll */
+    .client-logo { margin: 0 20px; height: 60px; } /* Smaller logos, less space */
+    .client-logo img { max-height: 40px; }
+
+    .footer { font-size: 0.9rem; }
+} 
