@@ -1,52 +1,93 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   mode: 'production',
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'static/js/[name].[contenthash].js',
-    chunkFilename: 'static/js/[name].[contenthash].js',
+    filename: 'static/js/[name].[contenthash:8].js',
+    chunkFilename: 'static/js/[name].[contenthash:8].chunk.js',
     publicPath: '/',
     clean: true,
-    assetModuleFilename: 'static/media/[name].[hash][ext]'
+    assetModuleFilename: 'static/media/[name].[hash:8][ext]'
   },
   optimization: {
     minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          parse: {
+            ecma: 8,
+          },
+          compress: {
+            ecma: 5,
+            warnings: false,
+            comparisons: false,
+            inline: 2,
+            drop_console: true,
+          },
+          mangle: {
+            safari10: true,
+          },
+          output: {
+            ecma: 5,
+            comments: false,
+            ascii_only: true,
+          },
+        },
+        parallel: true,
+      }),
+    ],
     splitChunks: {
       chunks: 'all',
-      maxInitialRequests: 20,
+      maxInitialRequests: 25,
       minSize: 20000,
       maxSize: 244000,
       cacheGroups: {
         react: {
-          test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+          test: /[\\/]node_modules[\\/](react|react-dom|react-router-dom)[\\/]/,
           name: 'react',
           chunks: 'all',
           priority: 40,
+          enforce: true,
         },
         framerMotion: {
-          test: /[\\/]node_modules[\\/](framer-motion|motion-dom|motion-utils)[\\/]/,
+          test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
           name: 'framer-motion',
           chunks: 'all',
           priority: 30,
+          enforce: true,
         },
         reactIcons: {
           test: /[\\/]node_modules[\\/]react-icons[\\/]/,
-          name: 'react-icons',
-          chunks: 'all',
+          name(module) {
+            const iconSet = module.context.match(/[\\/]react-icons[\\/](.*?)[\\/]/);
+            return iconSet ? `react-icons-${iconSet[1]}` : 'react-icons';
+          },
+          chunks: 'async',
           priority: 20,
+          enforce: true,
         },
         vendors: {
           test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all',
+          name(module) {
+            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+            return `vendor.${packageName.replace('@', '')}`;
+          },
+          chunks: 'async',
           priority: 10,
+          minChunks: 2,
+          reuseExistingChunk: true,
         },
       },
     },
-    runtimeChunk: 'single'
+    runtimeChunk: {
+      name: entrypoint => `runtime-${entrypoint.name}`,
+    },
   },
   performance: {
     maxEntrypointSize: 512000,
@@ -61,22 +102,58 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
+            presets: [
+              ['@babel/preset-env', {
+                useBuiltIns: 'usage',
+                corejs: 3,
+                modules: false,
+              }],
+              '@babel/preset-react'
+            ],
+            plugins: [
+              '@babel/plugin-transform-runtime',
+              '@babel/plugin-syntax-dynamic-import'
+            ],
+            cacheDirectory: true,
           }
         }
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: {
+                auto: true,
+                localIdentName: '[name]__[local]--[hash:base64:5]',
+              },
+            },
+          },
+          'postcss-loader',
+        ]
       },
       {
-        test: /\.(png|jpe?g|gif|svg)$/i,
-        type: 'asset/resource'
+        test: /\.(png|jpe?g|gif|svg|webp)$/i,
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 8 * 1024 // 8kb
+          }
+        }
       }
     ]
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+      '@components': path.resolve(__dirname, 'src/components'),
+      '@pages': path.resolve(__dirname, 'src/pages'),
+      '@assets': path.resolve(__dirname, 'src/assets'),
+    },
     fallback: {
       "path": require.resolve("path-browserify"),
       "fs": false,
@@ -100,14 +177,22 @@ module.exports = {
         minifyCSS: true,
         minifyURLs: true,
       }
-    })
-  ],
+    }),
+    new CompressionPlugin({
+      algorithm: 'gzip',
+      test: /\.(js|css|html|svg)$/,
+      threshold: 10240,
+      minRatio: 0.8,
+    }),
+    process.env.ANALYZE && new BundleAnalyzerPlugin(),
+  ].filter(Boolean),
   devServer: {
     historyApiFallback: true,
     static: {
       directory: path.join(__dirname, 'public')
     },
     port: 3001,
-    hot: true
+    hot: true,
+    compress: true,
   }
 }; 

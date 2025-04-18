@@ -175,4 +175,39 @@ document.addEventListener('DOMContentLoaded', function() {
     animatedElements.forEach(element => observer.observe(element));
 
     // Note: Client logo scroll animation is handled purely by CSS.
+
+    // Mobile Menu Toggle
+    const menuToggle = document.querySelector('.mobile-menu-toggle');
+    const nav = document.querySelector('.main-header nav');
+    const menuOverlay = document.querySelector('.menu-overlay');
+    const navLinks = document.querySelectorAll('.main-header nav a');
+
+    function toggleMenu() {
+        menuToggle.classList.toggle('active');
+        nav.classList.toggle('active');
+        menuOverlay.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+    }
+
+    // Toggle menu on button click
+    menuToggle.addEventListener('click', toggleMenu);
+
+    // Close menu when clicking overlay
+    menuOverlay.addEventListener('click', toggleMenu);
+
+    // Close menu when clicking a link
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (nav.classList.contains('active')) {
+                toggleMenu();
+            }
+        });
+    });
+
+    // Close menu on window resize (if open)
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && nav.classList.contains('active')) {
+            toggleMenu();
+        }
+    });
 }); 

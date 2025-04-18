@@ -1,65 +1,89 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaFacebookF, FaLinkedinIn, FaWhatsapp, FaSitemap, FaChevronDown } from 'react-icons/fa';
 import './Footer.css';
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+  const [isSitemapOpen, setIsSitemapOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const toggleSitemap = () => {
+    setIsSitemapOpen(!isSitemapOpen);
+  };
+
+  const handleClientsClick = (e) => {
+    e.preventDefault();
+    navigate('/', { state: { scrollTo: 'clients' } });
+  };
+
   return (
-    <footer className="main-footer">
+    <footer className="footer">
       <div className="container">
         <div className="footer-content">
-          <div className="footer-column company-info">
-            <h4 className="company-name">Dhruv Engineers</h4>
-            <p className="footer-tagline">Precision Machining & Fabrication Excellence Since 1998</p>
-          </div>
-          
-          <div className="footer-column contact-info">
-            <h4>Contact Information</h4>
-            <ul className="footer-contact-list">
-              <li>
-                <i className="fa-solid fa-location-dot"></i>
-                A65, A64 Oshiya Mata Compound Pipe Line Road<br />Kalher, Bhiwandi (421302)
-              </li>
-              <li>
-                <i className="fa-solid fa-phone"></i>
-                <a href="tel:+919876543210">+91 98765 43210</a>
-              </li>
-              <li>
-                <i className="fa-solid fa-envelope"></i>
+          <div className="footer-section">
+            <h3>Dhruv Engineers</h3>
+            <div className="contact-info">
+              <span>
+                <FaMapMarkerAlt />
+                A65, A64 Oshiya Mata Compound, Pipe Line Road, Kalher Bhiwandi (421302)
+              </span>
+              <span>
+                <FaPhone />
+                <a href="tel:+919321077596">+91 9321077596</a>
+              </span>
+              <span>
+                <FaEnvelope />
                 <a href="mailto:dhruvengineers1@gmail.com">dhruvengineers1@gmail.com</a>
-              </li>
-            </ul>
+              </span>
+            </div>
           </div>
-          
-          <div className="footer-column quick-links">
-            <h4>Quick Links</h4>
-            <ul className="footer-links">
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/#about">About Us</Link></li>
-              <li><Link to="/services">Services</Link></li>
-              <li><Link to="/#machinery">Machinery</Link></li>
-              <li><Link to="/#clients">Our Clients</Link></li>
-            </ul>
+
+          <div className="footer-section">
+            <button className="sitemap-toggle" onClick={toggleSitemap}>
+              <FaSitemap /> Sitemap
+              <FaChevronDown className={`chevron ${isSitemapOpen ? 'open' : ''}`} />
+            </button>
+          </div>
+
+          <div className="footer-section">
+            <div className="social-links">
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                <FaFacebookF />
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                <FaLinkedinIn />
+              </a>
+              <a href="https://wa.me/+919321077596" target="_blank" rel="noopener noreferrer">
+                <FaWhatsapp />
+              </a>
+            </div>
+            <div className="gst-info">
+              <span>GST No: 27ALTPP8679G1Z1</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Collapsible Sitemap */}
+        <div className={`sitemap-section ${isSitemapOpen ? 'open' : ''}`}>
+          <div className="sitemap-container">
+            <div className="sitemap-column">
+              <h4>Main Pages</h4>
+              <Link to="/">Home</Link>
+              <Link to="/about">About Us</Link>
+              <Link to="/contact">Contact</Link>
+            </div>
+            <div className="sitemap-column">
+              <h4>Services</h4>
+              <Link to="/services">Our Services</Link>
+              <Link to="/products">Products</Link>
+              <a href="#" onClick={handleClientsClick}>Our Clients</a>
+            </div>
           </div>
         </div>
         
         <div className="footer-bottom">
-          <div className="gst-info">
-            <span className="footer-gst">GST No: 27ALTPP8679G1Z1</span>
-          </div>
-          <div className="social-links">
-            <a href="#" className="social-icon" aria-label="Facebook">
-              <i className="fa-brands fa-facebook-f"></i>
-            </a>
-            <a href="#" className="social-icon" aria-label="LinkedIn">
-              <i className="fa-brands fa-linkedin-in"></i>
-            </a>
-            <a href="#" className="social-icon" aria-label="WhatsApp">
-              <i className="fa-brands fa-whatsapp"></i>
-            </a>
-          </div>
-          <div className="copyright">
-            <p>&copy; {new Date().getFullYear()} Dhruv Engineers. All Rights Reserved.</p>
-          </div>
+          <p className="copyright">&copy; {currentYear} Dhruv Engineers. All Rights Reserved.</p>
         </div>
       </div>
     </footer>

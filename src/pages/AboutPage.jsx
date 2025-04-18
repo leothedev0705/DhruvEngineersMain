@@ -92,6 +92,41 @@ const AboutPage = () => {
         </div>
       </section>
 
+      <section className="owner-info-section">
+        <div className="container">
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            The Vision Behind Our Success
+          </motion.h2>
+          <motion.div 
+            className="owner-info-container"
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+          >
+            <motion.div className="owner-info-card" variants={fadeInUp}>
+              <FaUsers className="owner-icon" />
+              <h3>Naresh Panchal</h3>
+              <p className="owner-title">Owner</p>
+              <p className="owner-contact">Contact: +91 9821198708</p>
+              <a 
+                href="https://www.indiamart.com/dhruv-engineers/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="indiamart-link"
+              >
+                Visit IndiaMART Profile
+              </a>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
       <section className="capabilities-section">
         <div className="container">
           <motion.h2

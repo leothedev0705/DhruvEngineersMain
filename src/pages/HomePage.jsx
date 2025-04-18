@@ -1,9 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link, useLocation } from 'react-router-dom';
 import Carousel from '../components/Carousel';
 import './HomePage.css';
+// Import client logos
+import Client1 from '../assets/logos/Client1.png';
+import Client2 from '../assets/logos/Client2.png';
+import Client3 from '../assets/logos/Client3.png';
+import Client4 from '../assets/logos/Client4.png';
+import Client5 from '../assets/logos/Client5.png';
+import Client6 from '../assets/logos/Client6.png';
+import Client7 from '../assets/logos/Client7.png';
+// Import carousel images
+import CarouselImage1 from '../assets/images/carousel/image_1.png';
+import CarouselImage2 from '../assets/images/carousel/image_2.png';
+import CarouselImage3 from '../assets/images/carousel/image_3.png';
 
 const HomePage = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.scrollTo === 'clients') {
+      const clientsSection = document.querySelector('.clients-section');
+      if (clientsSection) {
+        clientsSection.scrollIntoView({ behavior: 'smooth' });
+        // Clear the state after scrolling
+        window.history.replaceState({}, document.title);
+      }
+    }
+  }, [location]);
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 }
@@ -25,25 +51,26 @@ const HomePage = () => {
   };
 
   const carouselSlides = [
-    <div className="slide-content" key="1">
-      <h2>Welcome to Dhruv Engineers</h2>
-      <p>Leading the way in precision engineering and manufacturing excellence</p>
-      <a href="#contact" className="cta-button">Get Started</a>
+    <div className="slide-content" key="1" style={{ backgroundImage: `url(${CarouselImage1})` }}>
+      <div className="slide-overlay">
+        <h2>Welcome to Dhruv Engineers</h2>
+        <p>Leading the way in precision engineering and manufacturing excellence</p>
+        <Link to="/products" className="cta-button">Get Started</Link>
+      </div>
     </div>,
-    <div className="slide-content" key="2">
-      <h2>Innovative Solutions</h2>
-      <p>Cutting-edge technology meets engineering expertise</p>
-      <a href="#services" className="cta-button">Our Services</a>
+    <div className="slide-content" key="2" style={{ backgroundImage: `url(${CarouselImage2})` }}>
+      <div className="slide-overlay">
+        <h2>Innovative Solutions</h2>
+        <p>Cutting-edge technology meets engineering expertise</p>
+        <Link to="/products" className="cta-button">Our Services</Link>
+      </div>
     </div>,
-    <div className="slide-content" key="3">
-      <h2>Quality Assurance</h2>
-      <p>Committed to delivering excellence in every project</p>
-      <a href="#about" className="cta-button">Learn More</a>
-    </div>,
-    <div className="slide-content" key="4">
-      <h2>Global Reach</h2>
-      <p>Serving clients worldwide with innovative engineering solutions</p>
-      <a href="#contact" className="cta-button">Contact Us</a>
+    <div className="slide-content" key="3" style={{ backgroundImage: `url(${CarouselImage3})` }}>
+      <div className="slide-overlay">
+        <h2>Quality Assurance</h2>
+        <p>Committed to delivering excellence in every project</p>
+        <Link to="/products" className="cta-button">Learn More</Link>
+      </div>
     </div>
   ];
 
@@ -138,13 +165,11 @@ const HomePage = () => {
           <motion.p variants={fadeInUp}>
             Contact us today to discuss how we can help bring your ideas to life.
           </motion.p>
-          <motion.a
-            href="#contact"
-            className="cta-button"
-            variants={fadeInUp}
-          >
-            Get in Touch
-          </motion.a>
+          <motion.div variants={fadeInUp}>
+            <Link to="/contact" className="cta-button">
+              Get in Touch
+            </Link>
+          </motion.div>
         </div>
       </motion.section>
 
@@ -207,39 +232,67 @@ const HomePage = () => {
         </div>
       </motion.section>
 
-      <motion.section 
-        id="clients" 
-        className="clients-section"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={staggerContainer}
-      >
+      <section className="clients-section">
         <div className="container">
           <motion.h2 
             className="section-title"
-            variants={fadeInUp}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
           >
             Our Clients
           </motion.h2>
-          <motion.div 
-            className="clients-list"
-            variants={staggerContainer}
-          >
-            {[1, 2, 3, 4, 5, 6].map((client) => (
-              <motion.div 
-                key={client}
-                className="client-logo"
-                variants={scaleIn}
-                whileHover={{ scale: 1.1, filter: 'grayscale(0%)' }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Client {client}
-              </motion.div>
-            ))}
-          </motion.div>
+          <div className="client-logos-scroll-container">
+            <div className="client-logos">
+              {/* First set of logos */}
+              <div className="client-logo">
+                <img src={Client1} alt="Client 1" />
+              </div>
+              <div className="client-logo">
+                <img src={Client2} alt="Client 2" />
+              </div>
+              <div className="client-logo">
+                <img src={Client3} alt="Client 3" />
+              </div>
+              <div className="client-logo">
+                <img src={Client4} alt="Client 4" />
+              </div>
+              <div className="client-logo">
+                <img src={Client5} alt="Client 5" />
+              </div>
+              <div className="client-logo">
+                <img src={Client6} alt="Client 6" />
+              </div>
+              <div className="client-logo">
+                <img src={Client7} alt="Client 7" />
+              </div>
+              {/* Duplicate set for seamless loop */}
+              <div className="client-logo">
+                <img src={Client1} alt="Client 1" />
+              </div>
+              <div className="client-logo">
+                <img src={Client2} alt="Client 2" />
+              </div>
+              <div className="client-logo">
+                <img src={Client3} alt="Client 3" />
+              </div>
+              <div className="client-logo">
+                <img src={Client4} alt="Client 4" />
+              </div>
+              <div className="client-logo">
+                <img src={Client5} alt="Client 5" />
+              </div>
+              <div className="client-logo">
+                <img src={Client6} alt="Client 6" />
+              </div>
+              <div className="client-logo">
+                <img src={Client7} alt="Client 7" />
+              </div>
+            </div>
+          </div>
         </div>
-      </motion.section>
+      </section>
     </div>
   );
 };

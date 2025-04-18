@@ -72,11 +72,9 @@ const ContactPage = () => {
       title: "IndiaMart Profile",
       details: (
         <>
-          <a href="https://www.indiamart.com/dhruvengineers/" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.indiamart.com/dhruv-engineers/" target="_blank" rel="noopener noreferrer">
             Visit our IndiaMart Profile
           </a>
-          <br />
-          Member Since: 2020
           <br />
           Verified Supplier
         </>
@@ -208,6 +206,20 @@ const ContactPage = () => {
               </button>
             </form>
           </motion.div>
+
+          <div className="indiamart-profile-card">
+            <div className="globe-icon">
+              <img src="/globe-icon.svg" alt="Globe Icon" />
+            </div>
+            <h2>IndiaMart Profile</h2>
+            <a href="https://www.indiamart.com/dhruv-engineers/" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               className="indiamart-link">
+              Visit our IndiaMart Profile
+            </a>
+            <p className="verified-text">Verified Supplier</p>
+          </div>
         </div>
       </motion.section>
     </div>

@@ -399,4 +399,109 @@
   .features-grid {
     grid-template-columns: 1fr;
   }
+}
+
+.owner-info-section {
+  padding: 5rem 0;
+  background: var(--primary-light);
+  position: relative;
+  border-top: var(--border-teal);
+  border-bottom: var(--border-teal);
+}
+
+.owner-info-section h2 {
+  text-align: center;
+  color: var(--text-primary);
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.owner-info-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.owner-info-card {
+  background: var(--gradient-dark);
+  padding: 2.5rem;
+  border-radius: 8px;
+  border: var(--border-teal);
+  box-shadow: var(--shadow-blue);
+  text-align: center;
+  max-width: 400px;
+  transition: all 0.3s ease;
+}
+
+.owner-info-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-hover);
+  border: var(--border-teal-hover);
+}
+
+.owner-icon {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  color: var(--accent-teal);
+}
+
+.owner-info-card h3 {
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.owner-title {
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.owner-contact {
+  color: var(--accent-teal);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .owner-info-section h2 {
+    font-size: 2rem;
+  }
+  
+  .owner-info-card {
+    margin: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .owner-info-section h2 {
+    font-size: 1.8rem;
+  }
+  
+  .owner-info-card {
+    padding: 2rem;
+  }
+}
+
+.indiamart-link {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(135deg, #1d4ed8 0%, #112240 100%);
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(100, 255, 218, 0.2);
+  box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
+}
+
+.indiamart-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(29, 78, 216, 0.4);
+  border-color: var(--accent-teal);
 } 
