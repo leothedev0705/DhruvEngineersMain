@@ -50,6 +50,11 @@ const ProductsPage = () => {
     }
   };
 
+  const handleImageError = (e) => {
+    console.error('Image failed to load:', e.target.src);
+    e.target.src = 'https://via.placeholder.com/300x200?text=Product+Image';
+  };
+
   return (
     <div className="products-page">
       <section className="products-hero">
@@ -89,7 +94,12 @@ const ProductsPage = () => {
                 whileHover={{ y: -10, transition: { duration: 0.2 } }}
               >
                 <div className="product-image-container">
-                  <img src={product.image} alt={product.name} />
+                  <img 
+                    src={product.image} 
+                    alt={product.name}
+                    onError={handleImageError}
+                    loading="lazy"
+                  />
                 </div>
                 <div className="product-content">
                   <h3>{product.name}</h3>
