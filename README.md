@@ -1,63 +1,87 @@
 # Dhruv Engineers Website
 
-A modern, responsive website for Dhruv Engineers showcasing their machine shop work and fabrication services.
+A modern, responsive website for Dhruv Engineers showcasing their engineering and manufacturing services.
 
 ## Features
 
-- Responsive design that works on all devices
-- Modern UI with smooth animations
-- Image carousel with smooth transitions
-- Service sections with clear descriptions
-- Contact information and consultation booking
+- Responsive design optimized for all devices
+- Interactive carousel showcasing key services and achievements
+- Animated sections using Framer Motion
+- Client showcase with auto-scrolling logos
+- Comprehensive service listings
+- Contact information and social media integration
+- Collapsible sitemap in footer
+- Modern UI with smooth animations and transitions
 
 ## Technologies Used
 
-- HTML5
-- CSS3 (with modern features like CSS Grid, Flexbox)
-- JavaScript (Vanilla JS for carousel and animations)
-- Modern design principles and best practices
+- React.js
+- React Router for navigation
+- Framer Motion for animations
+- CSS3 with modern features
+- Responsive design principles
 
-## Setup
+## Getting Started
 
-1. Clone the repository:
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository
 ```bash
-git clone [your-repo-url]
+git clone [repository-url]
 ```
 
-2. Open the project folder:
+2. Install dependencies
 ```bash
-cd dhruv-engineers
+npm install
+# or
+yarn install
 ```
 
-3. Open `index.html` in your browser to view the website.
+3. Start the development server
+```bash
+npm start
+# or
+yarn start
+```
 
-## Development
+4. Build for production
+```bash
+npm run build
+# or
+yarn build
+```
 
-The project structure is organized as follows:
+## Project Structure
 
-- `index.html` - Main HTML file
-- `style.css` - All styles and animations
-- `script.js` - JavaScript for carousel and interactions
+```
+src/
+├── assets/        # Images, logos, and other static files
+├── components/    # Reusable React components
+├── pages/         # Page components
+├── styles/        # Global styles and theme
+└── App.js         # Main application component
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## Contact
 
-For any queries regarding this website, please contact:
+Dhruv Engineers
 - Email: dhruvengineers1@gmail.com
-- Address: A65, A64 Oshiya Mata Compound Pipe Line Road Kalher Bhiwandi (421302)
-- GST No: 27ALTPP8679G1Z1
+- Phone: +91 9321077596
+- Address: A65, A64 Oshiya Mata Compound, Pipe Line Road, Kalher Bhiwandi (421302)
 
-## Structure
+## License
 
-- `index.html`: The main HTML file containing the website structure and content.
-- `style.css`: The CSS file for styling the website.
-- `script.js`: JavaScript file for interactive elements (currently includes smooth scroll).
-- `assets/`: Directory for storing images (hero background, service icons, machinery photos, client logos).
-
-## Content placeholders to update:
-
--   Hero background image in `style.css` (`.hero-section background`)
--   Service icons/images in `index.html` (Section 3)
--   Machinery image thumbnails in `index.html` (Section 4)
--   Client logos (replace text spans) in `index.html` (Section 5)
--   Contact phone number in `index.html` (Section 6)
--   Company address and GST number in `index.html` (Footer) 
+This project is proprietary and confidential. All rights reserved. 
