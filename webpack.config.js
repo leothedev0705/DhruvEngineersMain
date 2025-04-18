@@ -9,23 +9,49 @@ module.exports = {
     filename: 'static/js/[name].[contenthash].js',
     chunkFilename: 'static/js/[name].[contenthash].js',
     publicPath: '/',
-    clean: true
+    clean: true,
+    assetModuleFilename: 'static/media/[name].[hash][ext]'
   },
   optimization: {
     minimize: true,
     splitChunks: {
       chunks: 'all',
+      maxInitialRequests: 20,
       minSize: 20000,
       maxSize: 244000,
       cacheGroups: {
-        vendor: {
+        react: {
+          test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+          name: 'react',
+          chunks: 'all',
+          priority: 40,
+        },
+        framerMotion: {
+          test: /[\\/]node_modules[\\/](framer-motion|motion-dom|motion-utils)[\\/]/,
+          name: 'framer-motion',
+          chunks: 'all',
+          priority: 30,
+        },
+        reactIcons: {
+          test: /[\\/]node_modules[\\/]react-icons[\\/]/,
+          name: 'react-icons',
+          chunks: 'all',
+          priority: 20,
+        },
+        vendors: {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendors',
           chunks: 'all',
+          priority: 10,
         },
       },
     },
     runtimeChunk: 'single'
+  },
+  performance: {
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
+    hints: 'warning'
   },
   module: {
     rules: [
@@ -45,10 +71,7 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
-        type: 'asset/resource',
-        generator: {
-          filename: 'static/media/[name].[hash][ext]'
-        }
+        type: 'asset/resource'
       }
     ]
   },
@@ -84,7 +107,7 @@ module.exports = {
     static: {
       directory: path.join(__dirname, 'public')
     },
-    port: 3000,
+    port: 3001,
     hot: true
   }
 }; 
