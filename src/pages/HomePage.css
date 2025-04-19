@@ -9,56 +9,62 @@
 /* Hero Section */
 .hero-section {
   width: 100%;
-  height: auto;
+  height: 100vh;
   padding: 0;
   margin: 0;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-section::before {
   display: none;
 }
 
-.hero-section .container,
-.hero-section > div {
+.hero-section .container {
   width: 100%;
-  padding: 0;
+  padding: 1rem;
   margin: 0;
   max-width: 100%;
+  z-index: 2;
 }
 
 .hero-section h1 {
-  font-size: 3.5rem;
-  margin-bottom: 1.5rem;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
   font-weight: 700;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   background: linear-gradient(to right, var(--text-primary), var(--accent-teal));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  padding: 0 10px;
 }
 
 .hero-subtitle {
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
   opacity: 0.9;
   color: var(--text-secondary);
+  padding: 0 15px;
 }
 
 .cta-button {
   display: inline-block;
-  padding: 1rem 2.5rem;
+  padding: 0.8rem 2rem;
   background: linear-gradient(135deg, #1d4ed8 0%, #112240 100%);
   color: #ffffff;
   text-decoration: none;
   border-radius: 4px;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1rem;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
   border: 1px solid rgba(100, 255, 218, 0.2);
   position: relative;
   overflow: hidden;
+  margin-top: 1rem;
 }
 
 .cta-button::before {
