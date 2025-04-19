@@ -212,10 +212,45 @@ const ContactPage = () => {
               method="POST" 
               target="_blank"
               onSubmit={(e) => {
-                // Store current form values
-                const currentFormData = { ...formData };
-                
-                // Clear form and show success message immediately
+                e.preventDefault();
+                setIsSubmitting(true);
+
+                // Create a new form for submission
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSejRoxN_4WLG-mT72dVbu_Wj88z9ZEh2IMrH4hKvcEbB1XrPg/formResponse';
+                form.target = '_blank';
+
+                // Add all form fields
+                const formFields = {
+                  'entry.528846873': formData.name,
+                  'entry.818318423': formData.email,
+                  'entry.1028741362': formData.phone,
+                  'entry.1387483968': formData.subject,
+                  'entry.1496193312': formData.message
+                };
+
+                // Create hidden inputs for each field
+                Object.entries(formFields).forEach(([name, value]) => {
+                  const input = document.createElement('input');
+                  input.type = 'hidden';
+                  input.name = name;
+                  input.value = value;
+                  form.appendChild(input);
+                });
+
+                // Append form to body
+                document.body.appendChild(form);
+
+                // Submit the form
+                form.submit();
+
+                // Remove the form
+                setTimeout(() => {
+                  document.body.removeChild(form);
+                }, 100);
+
+                // Clear the visible form and show success message
                 setFormData({
                   name: '',
                   email: '',
@@ -226,7 +261,7 @@ const ContactPage = () => {
                 setSubmitStatus('success');
                 setIsSubmitting(false);
 
-                // Focus back to the window after submission
+                // Return focus to the window
                 setTimeout(() => {
                   window.focus();
                 }, 1000);
@@ -236,7 +271,7 @@ const ContactPage = () => {
               <div className="form-group">
                 <input
                   type="text"
-                  name="entry.528846873"
+                  name="name"
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Your Name"
@@ -247,7 +282,7 @@ const ContactPage = () => {
               <div className="form-group">
                 <input
                   type="email"
-                  name="entry.818318423"
+                  name="email"
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Your Email"
@@ -258,7 +293,7 @@ const ContactPage = () => {
               <div className="form-group">
                 <input
                   type="tel"
-                  name="entry.1028741362"
+                  name="phone"
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="Your Phone"
@@ -268,7 +303,7 @@ const ContactPage = () => {
               <div className="form-group">
                 <input
                   type="text"
-                  name="entry.1387483968"
+                  name="subject"
                   value={formData.subject}
                   onChange={handleChange}
                   placeholder="Subject"
@@ -278,7 +313,7 @@ const ContactPage = () => {
               </div>
               <div className="form-group">
                 <textarea
-                  name="entry.1496193312"
+                  name="message"
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Your Message"
