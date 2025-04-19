@@ -9,62 +9,56 @@
 /* Hero Section */
 .hero-section {
   width: 100%;
-  height: 100vh;
+  height: auto;
   padding: 0;
   margin: 0;
   position: relative;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .hero-section::before {
   display: none;
 }
 
-.hero-section .container {
+.hero-section .container,
+.hero-section > div {
   width: 100%;
-  padding: 1rem;
+  padding: 0;
   margin: 0;
   max-width: 100%;
-  z-index: 2;
 }
 
 .hero-section h1 {
-  font-size: 2.2rem;
-  margin-bottom: 1rem;
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
   font-weight: 700;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   background: linear-gradient(to right, var(--text-primary), var(--accent-teal));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  padding: 0 10px;
 }
 
 .hero-subtitle {
-  font-size: 1.1rem;
-  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
   opacity: 0.9;
   color: var(--text-secondary);
-  padding: 0 15px;
 }
 
 .cta-button {
   display: inline-block;
-  padding: 0.8rem 2rem;
+  padding: 1rem 2.5rem;
   background: linear-gradient(135deg, #1d4ed8 0%, #112240 100%);
   color: #ffffff;
   text-decoration: none;
   border-radius: 4px;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.1rem;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
   border: 1px solid rgba(100, 255, 218, 0.2);
   position: relative;
   overflow: hidden;
-  margin-top: 1rem;
 }
 
 .cta-button::before {
@@ -571,12 +565,37 @@ section {
 .slide-content {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 600px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.slide-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  background-size: cover;
+  background-position: center;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+}
+
+.slide-content img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .slide-overlay {
@@ -585,106 +604,82 @@ section {
   left: 0;
   right: 0;
   bottom: 0;
+  background: none;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: 2rem;
-  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
   text-align: center;
+  padding: 2rem;
+  width: 100%;
 }
 
 .slide-overlay h2 {
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: 3.5rem;
+  font-weight: 700;
   margin-bottom: 1rem;
-  color: var(--text-primary);
+  color: #ffffff;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  max-width: 90%;
-  line-height: 1.2;
 }
 
 .slide-overlay p {
-  font-size: clamp(1rem, 3vw, 1.5rem);
-  color: var(--text-secondary);
+  font-size: 2rem;
+  color: #ffffff;
   margin-bottom: 2rem;
-  max-width: 90%;
+  max-width: 1000px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
   line-height: 1.4;
+  font-weight: 500;
+}
+
+/* Carousel container styles */
+.carousel-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 1200px) {
+  .slide-content {
+    height: 500px;
+  }
+
+  .slide-overlay h2 {
+    font-size: 3.5rem;
+  }
+
+  .slide-overlay p {
+    font-size: 1.8rem;
+  }
 }
 
 @media (max-width: 768px) {
   .slide-content {
-    height: 80vh;
-    padding: 1rem;
-  }
-
-  .slide-overlay {
-    padding: 1.5rem;
+    height: 400px;
   }
 
   .slide-overlay h2 {
-    margin-bottom: 0.8rem;
+    font-size: 3rem;
   }
 
   .slide-overlay p {
-    margin-bottom: 1.5rem;
-  }
-
-  .cta-button {
-    padding: 0.8rem 2rem;
-    font-size: 1rem;
+    font-size: 1.6rem;
   }
 }
 
 @media (max-width: 480px) {
   .slide-content {
-    height: 70vh;
-    padding: 1rem;
-  }
-
-  .slide-overlay {
-    padding: 1rem;
+    height: 300px;
   }
 
   .slide-overlay h2 {
-    margin-bottom: 0.6rem;
+    font-size: 2.5rem;
   }
 
   .slide-overlay p {
-    margin-bottom: 1.2rem;
-  }
-
-  .cta-button {
-    padding: 0.7rem 1.8rem;
-    font-size: 0.9rem;
-  }
-}
-
-/* Specific fixes for devices around 393px width (like Redmi Note 12 Pro+) */
-@media (max-width: 400px) {
-  .slide-content {
-    height: 60vh;
-  }
-
-  .slide-overlay {
-    padding: 0.8rem;
-  }
-
-  .slide-overlay h2 {
-    font-size: clamp(1.8rem, 4vw, 2.2rem);
-    margin-bottom: 0.5rem;
-    padding: 0 0.5rem;
-  }
-
-  .slide-overlay p {
-    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-    margin-bottom: 1rem;
-    padding: 0 0.5rem;
-  }
-
-  .cta-button {
-    padding: 0.6rem 1.5rem;
-    font-size: 0.85rem;
-    min-width: auto;
+    font-size: 1.4rem;
   }
 }
 
