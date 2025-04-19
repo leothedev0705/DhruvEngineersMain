@@ -207,11 +207,36 @@ const ContactPage = () => {
             variants={fadeInUp}
           >
             <h2>Send us a Message</h2>
-            <form onSubmit={handleSubmit} className="contact-form">
+            <form 
+              action="https://docs.google.com/forms/d/e/1FAIpQLSejRoxN_4WLG-mT72dVbu_Wj88z9ZEh2IMrH4hKvcEbB1XrPg/formResponse" 
+              method="POST" 
+              target="_blank"
+              onSubmit={(e) => {
+                // Store current form values
+                const currentFormData = { ...formData };
+                
+                // Clear form and show success message immediately
+                setFormData({
+                  name: '',
+                  email: '',
+                  phone: '',
+                  subject: '',
+                  message: ''
+                });
+                setSubmitStatus('success');
+                setIsSubmitting(false);
+
+                // Focus back to the window after submission
+                setTimeout(() => {
+                  window.focus();
+                }, 1000);
+              }}
+              className="contact-form"
+            >
               <div className="form-group">
                 <input
                   type="text"
-                  name="name"
+                  name="entry.528846873"
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Your Name"
@@ -222,7 +247,7 @@ const ContactPage = () => {
               <div className="form-group">
                 <input
                   type="email"
-                  name="email"
+                  name="entry.818318423"
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Your Email"
@@ -233,7 +258,7 @@ const ContactPage = () => {
               <div className="form-group">
                 <input
                   type="tel"
-                  name="phone"
+                  name="entry.1028741362"
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="Your Phone"
@@ -243,7 +268,7 @@ const ContactPage = () => {
               <div className="form-group">
                 <input
                   type="text"
-                  name="subject"
+                  name="entry.1387483968"
                   value={formData.subject}
                   onChange={handleChange}
                   placeholder="Subject"
@@ -253,7 +278,7 @@ const ContactPage = () => {
               </div>
               <div className="form-group">
                 <textarea
-                  name="message"
+                  name="entry.1496193312"
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Your Message"
@@ -278,16 +303,6 @@ const ContactPage = () => {
                   animate={{ opacity: 1, y: 0 }}
                 >
                   Thank you for your message! We'll get back to you soon.
-                </motion.div>
-              )}
-              
-              {submitStatus === 'error' && (
-                <motion.div
-                  className="form-status error"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                >
-                  There was an error sending your message. Please try again.
                 </motion.div>
               )}
             </form>
