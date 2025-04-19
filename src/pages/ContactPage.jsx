@@ -1,104 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaIdCard, FaGlobe } from 'react-icons/fa';
 import './ContactPage.css';
 import logo from '../assets/images/Logo.png';
 
-const ContactPage = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: ''
-  });
+const GOOGLE_FORM_URL = 
+  'https://docs.google.com/forms/d/e/1FAIpQLSejRoxN_4WLG-mT72dVbu_Wj88z9ZEh2IMrH4hKvcEbB1XrPg/formResponse';
+const GOOGLE_FORM_FIELDS = {
+  name:    'entry.528846873',
+  email:   'entry.818318423',
+  phone:   'entry.1028741362',
+  subject: 'entry.1387483968',
+  message: 'entry.1496193312'
+};
 
+const fadeInUp = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } };
+const staggerContainer = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.2 } } };
+const scaleIn = { hidden: { scale: 0.8, opacity: 0 }, visible: { scale: 1, opacity: 1 } };
+
+export default function ContactPage() {
+  const formRef = useRef(null);
+  const [formData, setFormData] = useState({
+    name: '', email: '', phone: '', subject: '', message: ''
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
-  // Google Form configuration
-  const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSejRoxN_4WLG-mT72dVbu_Wj88z9ZEh2IMrH4hKvcEbB1XrPg/formResponse';
-  
-  const GOOGLE_FORM_FIELDS = {
-    name: 'entry.528846873',      // Name field
-    email: 'entry.818318423',     // Email field
-    phone: 'entry.1028741362',    // Phone field
-    subject: 'entry.1387483968',  // Subject field
-    message: 'entry.1496193312'   // Message field
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus(null);
 
-    // Store form data before clearing
-    const submittedData = { ...formData };
+    // trigger the real POST
+    formRef.current.submit();
 
-    // Clear form immediately
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      subject: '',
-      message: ''
-    });
-
-    // Show success message
-    setSubmitStatus('success');
-    setIsSubmitting(false);
-
-    // Create the form element
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = GOOGLE_FORM_ACTION_URL;
-    form.target = '_blank';
-
-    // Add the form fields
-    Object.keys(submittedData).forEach(key => {
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = GOOGLE_FORM_FIELDS[key];
-      input.value = submittedData[key];
-      form.appendChild(input);
-    });
-
-    // Submit the form
-    document.body.appendChild(form);
-    form.submit();
-    document.body.removeChild(form);
-
-    // Close the submission tab after a delay
+    // reset UI after a short delay
     setTimeout(() => {
-      window.focus();
+      setFormData({ name:'', email:'', phone:'', subject:'', message:'' });
+      setIsSubmitting(false);
+      setSubmitStatus('success');
     }, 1000);
-  };
-
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const scaleIn = {
-    hidden: { scale: 0.8, opacity: 0 },
-    visible: { scale: 1, opacity: 1 }
   };
 
   const contactInfo = [
@@ -127,7 +68,11 @@ const ContactPage = () => {
       title: "IndiaMart Profile",
       details: (
         <>
-          <a href="https://www.indiamart.com/dhruv-engineers/" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://www.indiamart.com/dhruv-engineers/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Visit our IndiaMart Profile
           </a>
           <br />
@@ -139,7 +84,8 @@ const ContactPage = () => {
 
   return (
     <div className="contact-page">
-      <motion.section 
+      {/* HERO */}
+      <motion.section
         className="contact-hero"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -152,20 +98,16 @@ const ContactPage = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
-            <img 
-              src={logo}
-              alt="Dhruv Engineers Logo" 
-              className="company-logo"
-            />
+            <img src={logo} alt="Dhruv Engineers Logo" className="company-logo" />
           </motion.div>
-          <motion.h1 
+          <motion.h1
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
             Get in Touch
           </motion.h1>
-          <motion.p 
+          <motion.p
             className="hero-subtitle"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -176,7 +118,8 @@ const ContactPage = () => {
         </div>
       </motion.section>
 
-      <motion.section 
+      {/* CONTENT */}
+      <motion.section
         className="contact-content"
         initial="hidden"
         whileInView="visible"
@@ -184,13 +127,11 @@ const ContactPage = () => {
         variants={staggerContainer}
       >
         <div className="container">
-          <motion.div 
-            className="contact-info-grid"
-            variants={staggerContainer}
-          >
-            {contactInfo.map((info, index) => (
-              <motion.div 
-                key={index}
+          {/* Info Cards */}
+          <motion.div className="contact-info-grid" variants={staggerContainer}>
+            {contactInfo.map((info, i) => (
+              <motion.div
+                key={i}
                 className="contact-info-card"
                 variants={scaleIn}
                 whileHover={{ scale: 1.05 }}
@@ -202,74 +143,104 @@ const ContactPage = () => {
             ))}
           </motion.div>
 
-          <motion.div 
-            className="contact-form-container"
-            variants={fadeInUp}
-          >
+          {/* Hidden iframe to swallow redirect */}
+          <iframe name="hidden_iframe" style={{ display: 'none' }} />
+
+          {/* Contact Form */}
+          <motion.div className="contact-form-container" variants={fadeInUp}>
             <h2>Send us a Message</h2>
-            <form 
-              action="https://docs.google.com/forms/d/e/1FAIpQLSejRoxN_4WLG-mT72dVbu_Wj88z9ZEh2IMrH4hKvcEbB1XrPg/formResponse"
+            <form
+              ref={formRef}
+              action={GOOGLE_FORM_URL}
               method="POST"
+              target="hidden_iframe"
+              onSubmit={handleSubmit}
               className="contact-form"
             >
-              <div className="form-group">
-                <input
-                  type="text"
-                  name="entry.528846873"
-                  placeholder="Your Name"
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="email"
-                  name="entry.818318423"
-                  placeholder="Your Email"
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="tel"
-                  name="entry.1028741362"
-                  placeholder="Your Phone"
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="text"
-                  name="entry.1387483968"
-                  placeholder="Subject"
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <textarea
-                  name="entry.1496193312"
-                  placeholder="Your Message"
-                  required
-                />
-              </div>
+              {Object.entries(GOOGLE_FORM_FIELDS).map(([key, entryId]) => (
+                <div className="form-group" key={key}>
+                  {key !== 'message' ? (
+                    <input
+                      type={
+                        key === 'email'
+                          ? 'email'
+                          : key === 'phone'
+                          ? 'tel'
+                          : 'text'
+                      }
+                      placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
+                      value={formData[key]}
+                      onChange={e =>
+                        setFormData(prev => ({
+                          ...prev,
+                          [key]: e.target.value
+                        }))
+                      }
+                      required={key !== 'phone'}
+                      disabled={isSubmitting}
+                    />
+                  ) : (
+                    <textarea
+                      placeholder="Your Message"
+                      value={formData.message}
+                      onChange={e =>
+                        setFormData(prev => ({
+                          ...prev,
+                          message: e.target.value
+                        }))
+                      }
+                      required
+                      disabled={isSubmitting}
+                    />
+                  )}
+                  {/* hidden field for Google Forms */}
+                  <input type="hidden" name={entryId} value={formData[key]} />
+                </div>
+              ))}
+
               <motion.button
                 type="submit"
-                className="submit-button"
+                className={`submit-button ${isSubmitting ? 'submitting' : ''}`}
+                disabled={isSubmitting}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Send Message
+                {isSubmitting ? 'Sending…' : 'Send Message'}
               </motion.button>
+
+              {submitStatus === 'success' && (
+                <motion.div
+                  className="form-status success"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  Thank you! We'll get back to you soon.
+                </motion.div>
+              )}
+              {submitStatus === 'error' && (
+                <motion.div
+                  className="form-status error"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  There was an error sending your message. Please try again.
+                </motion.div>
+              )}
             </form>
           </motion.div>
 
+          {/* IndiaMart Profile */}
           <div className="indiamart-profile-card">
             <div className="globe-icon">
               <img src="/globe-icon.svg" alt="Globe Icon" />
             </div>
             <h2>IndiaMart Profile</h2>
-            <a href="https://www.indiamart.com/dhruv-engineers/" 
-               target="_blank" 
-               rel="noopener noreferrer" 
-               className="indiamart-link">
+            <a
+              href="https://www.indiamart.com/dhruv-engineers/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="indiamart-link"
+            >
               Visit our IndiaMart Profile
             </a>
             <p className="verified-text">Verified Supplier</p>
@@ -278,6 +249,4 @@ const ContactPage = () => {
       </motion.section>
     </div>
   );
-};
-
-export default ContactPage; 
+} 
