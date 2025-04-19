@@ -60,7 +60,9 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
-  padding: 2rem 0;
+  padding: 2rem;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .product-card {
@@ -70,6 +72,9 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   border: var(--border-teal);
   transition: all 0.3s ease;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .product-card:hover {
@@ -145,6 +150,7 @@
 @media (max-width: 1200px) {
   .products-grid {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    padding: 1.5rem;
   }
 }
 
@@ -160,6 +166,7 @@
   .products-grid {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1.2rem;
+    padding: 1rem;
   }
 
   .product-image-container {
@@ -184,13 +191,61 @@
 @media (max-width: 480px) {
   .products-hero h1 {
     font-size: 2rem;
+    padding: 0 1rem;
   }
 
   .products-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .product-card {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .product-image-container {
+    height: 200px;
+  }
+}
+
+/* Specific fixes for devices around 393px width (like Redmi Note 12 Pro+) */
+@media (max-width: 400px) {
+  .products-page {
+    padding-top: 60px;
+  }
+
+  .products-grid {
+    padding: 0.8rem;
+  }
+
+  .product-card {
+    width: 100%;
+    margin: 0;
   }
 
   .product-image-container {
     height: 180px;
+  }
+
+  .product-content {
+    padding: 0.8rem;
+  }
+
+  .product-content h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .product-content p {
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .quote-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    min-width: 100px;
   }
 } 
