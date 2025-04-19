@@ -208,62 +208,24 @@ const ContactPage = () => {
           >
             <h2>Send us a Message</h2>
             <form 
-              action="https://docs.google.com/forms/d/e/1FAIpQLSejRoxN_4WLG-mT72dVbu_Wj88z9ZEh2IMrH4hKvcEbB1XrPg/formResponse" 
               method="POST" 
               target="_blank"
+              action="https://docs.google.com/forms/d/e/1FAIpQLSejRoxN_4WLG-mT72dVbu_Wj88z9ZEh2IMrH4hKvcEbB1XrPg/formResponse"
               onSubmit={(e) => {
-                e.preventDefault();
+                // Don't prevent default - let the form submit naturally
                 setIsSubmitting(true);
-
-                // Create a new form for submission
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSejRoxN_4WLG-mT72dVbu_Wj88z9ZEh2IMrH4hKvcEbB1XrPg/formResponse';
-                form.target = '_blank';
-
-                // Add all form fields
-                const formFields = {
-                  'entry.528846873': formData.name,
-                  'entry.818318423': formData.email,
-                  'entry.1028741362': formData.phone,
-                  'entry.1387483968': formData.subject,
-                  'entry.1496193312': formData.message
-                };
-
-                // Create hidden inputs for each field
-                Object.entries(formFields).forEach(([name, value]) => {
-                  const input = document.createElement('input');
-                  input.type = 'hidden';
-                  input.name = name;
-                  input.value = value;
-                  form.appendChild(input);
-                });
-
-                // Append form to body
-                document.body.appendChild(form);
-
-                // Submit the form
-                form.submit();
-
-                // Remove the form
+                
+                // Clear form and show success message after a brief delay
                 setTimeout(() => {
-                  document.body.removeChild(form);
-                }, 100);
-
-                // Clear the visible form and show success message
-                setFormData({
-                  name: '',
-                  email: '',
-                  phone: '',
-                  subject: '',
-                  message: ''
-                });
-                setSubmitStatus('success');
-                setIsSubmitting(false);
-
-                // Return focus to the window
-                setTimeout(() => {
-                  window.focus();
+                  setFormData({
+                    name: '',
+                    email: '',
+                    phone: '',
+                    subject: '',
+                    message: ''
+                  });
+                  setSubmitStatus('success');
+                  setIsSubmitting(false);
                 }, 1000);
               }}
               className="contact-form"
@@ -271,7 +233,7 @@ const ContactPage = () => {
               <div className="form-group">
                 <input
                   type="text"
-                  name="name"
+                  name="entry.528846873"
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Your Name"
@@ -282,7 +244,7 @@ const ContactPage = () => {
               <div className="form-group">
                 <input
                   type="email"
-                  name="email"
+                  name="entry.818318423"
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Your Email"
@@ -293,7 +255,7 @@ const ContactPage = () => {
               <div className="form-group">
                 <input
                   type="tel"
-                  name="phone"
+                  name="entry.1028741362"
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="Your Phone"
@@ -303,7 +265,7 @@ const ContactPage = () => {
               <div className="form-group">
                 <input
                   type="text"
-                  name="subject"
+                  name="entry.1387483968"
                   value={formData.subject}
                   onChange={handleChange}
                   placeholder="Subject"
@@ -313,7 +275,7 @@ const ContactPage = () => {
               </div>
               <div className="form-group">
                 <textarea
-                  name="message"
+                  name="entry.1496193312"
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Your Message"
