@@ -26,15 +26,21 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
+    console.log('handleSubmit triggered'); // verify this appears in Console
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-    // trigger the real POST
+    // trigger the browser form POST
     formRef.current.submit();
 
-    // reset UI after a short delay
+    // reset state & show success message
     setTimeout(() => {
       setFormData({ name:'', email:'', phone:'', subject:'', message:'' });
       setIsSubmitting(false);
@@ -143,7 +149,7 @@ export default function ContactPage() {
             ))}
           </motion.div>
 
-          {/* Hidden iframe to swallow redirect */}
+          {/* Hidden iframe for Google redirect */}
           <iframe name="hidden_iframe" style={{ display: 'none' }} />
 
           {/* Contact Form */}
@@ -157,46 +163,93 @@ export default function ContactPage() {
               onSubmit={handleSubmit}
               className="contact-form"
             >
-              {Object.entries(GOOGLE_FORM_FIELDS).map(([key, entryId]) => (
-                <div className="form-group" key={key}>
-                  {key !== 'message' ? (
-                    <input
-                      type={
-                        key === 'email'
-                          ? 'email'
-                          : key === 'phone'
-                          ? 'tel'
-                          : 'text'
-                      }
-                      placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
-                      value={formData[key]}
-                      onChange={e =>
-                        setFormData(prev => ({
-                          ...prev,
-                          [key]: e.target.value
-                        }))
-                      }
-                      required={key !== 'phone'}
-                      disabled={isSubmitting}
-                    />
-                  ) : (
-                    <textarea
-                      placeholder="Your Message"
-                      value={formData.message}
-                      onChange={e =>
-                        setFormData(prev => ({
-                          ...prev,
-                          message: e.target.value
-                        }))
-                      }
-                      required
-                      disabled={isSubmitting}
-                    />
-                  )}
-                  {/* hidden field for Google Forms */}
-                  <input type="hidden" name={entryId} value={formData[key]} />
-                </div>
-              ))}
+              {/* Name */}
+              <div className="form-group">
+                <input
+                  name="name"
+                  type="text"
+                  placeholder="Your Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  disabled={isSubmitting}
+                />
+                <input
+                  type="hidden"
+                  name={GOOGLE_FORM_FIELDS.name}
+                  value={formData.name}
+                />
+              </div>
+
+              {/* Email */}
+              <div className="form-group">
+                <input
+                  name="email"
+                  type="email"
+                  placeholder="Your Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  disabled={isSubmitting}
+                />
+                <input
+                  type="hidden"
+                  name={GOOGLE_FORM_FIELDS.email}
+                  value={formData.email}
+                />
+              </div>
+
+              {/* Phone */}
+              <div className="form-group">
+                <input
+                  name="phone"
+                  type="tel"
+                  placeholder="Your Phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  disabled={isSubmitting}
+                />
+                <input
+                  type="hidden"
+                  name={GOOGLE_FORM_FIELDS.phone}
+                  value={formData.phone}
+                />
+              </div>
+
+              {/* Subject */}
+              <div className="form-group">
+                <input
+                  name="subject"
+                  type="text"
+                  placeholder="Subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
+                  disabled={isSubmitting}
+                />
+                <input
+                  type="hidden"
+                  name={GOOGLE_FORM_FIELDS.subject}
+                  value={formData.subject}
+                />
+              </div>
+
+              {/* Message */}
+              <div className="form-group">
+                <textarea
+                  name="message"
+                  placeholder="Your Message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  disabled={isSubmitting}
+                />
+                <input
+                  type="hidden"
+                  name={GOOGLE_FORM_FIELDS.message}
+                  value={formData.message}
+                />
+              </div>
 
               <motion.button
                 type="submit"
@@ -228,23 +281,6 @@ export default function ContactPage() {
               )}
             </form>
           </motion.div>
-
-          {/* IndiaMart Profile */}
-          <div className="indiamart-profile-card">
-            <div className="globe-icon">
-              <img src="/globe-icon.svg" alt="Globe Icon" />
-            </div>
-            <h2>IndiaMart Profile</h2>
-            <a
-              href="https://www.indiamart.com/dhruv-engineers/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="indiamart-link"
-            >
-              Visit our IndiaMart Profile
-            </a>
-            <p className="verified-text">Verified Supplier</p>
-          </div>
         </div>
       </motion.section>
     </div>
