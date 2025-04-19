@@ -41,17 +41,11 @@ const ContactPage = () => {
     setSubmitStatus(null);
 
     try {
-      // Create a hidden iframe
-      const iframe = document.createElement('iframe');
-      iframe.name = 'hidden_iframe';
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
-
-      // Create a hidden form
+      // Create a temporary form
       const form = document.createElement('form');
       form.method = 'POST';
       form.action = GOOGLE_FORM_URL;
-      form.target = 'hidden_iframe';  // Target the hidden iframe instead of _blank
+      form.target = '_blank';
       form.style.display = 'none';
 
       // Add form fields
@@ -63,32 +57,36 @@ const ContactPage = () => {
         form.appendChild(input);
       });
 
-      // Add form to body and submit
+      // Add form to body
       document.body.appendChild(form);
+
+      // Submit form
       form.submit();
 
-      // Remove form and iframe after submission
+      // Remove form after submission
       setTimeout(() => {
         document.body.removeChild(form);
-        document.body.removeChild(iframe);
       }, 100);
 
-      // Clear form and show success message after a brief delay
+      // Clear form and show success message
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        subject: '',
+        message: ''
+      });
+      setSubmitStatus('success');
+
+      // Close the new tab that was opened
       setTimeout(() => {
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          subject: '',
-          message: ''
-        });
-        setSubmitStatus('success');
-        setIsSubmitting(false);
-      }, 1000);
+        window.focus();
+      }, 500);
 
     } catch (error) {
       console.error('Form submission error:', error);
       setSubmitStatus('error');
+    } finally {
       setIsSubmitting(false);
     }
   };
