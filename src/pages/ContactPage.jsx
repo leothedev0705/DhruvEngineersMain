@@ -208,100 +208,56 @@ const ContactPage = () => {
           >
             <h2>Send us a Message</h2>
             <form 
-              method="POST" 
-              target="_blank"
               action="https://docs.google.com/forms/d/e/1FAIpQLSejRoxN_4WLG-mT72dVbu_Wj88z9ZEh2IMrH4hKvcEbB1XrPg/formResponse"
-              onSubmit={(e) => {
-                // Don't prevent default - let the form submit naturally
-                setIsSubmitting(true);
-                
-                // Clear form and show success message after a brief delay
-                setTimeout(() => {
-                  setFormData({
-                    name: '',
-                    email: '',
-                    phone: '',
-                    subject: '',
-                    message: ''
-                  });
-                  setSubmitStatus('success');
-                  setIsSubmitting(false);
-                }, 1000);
-              }}
+              method="POST"
               className="contact-form"
             >
               <div className="form-group">
                 <input
                   type="text"
                   name="entry.528846873"
-                  value={formData.name}
-                  onChange={handleChange}
                   placeholder="Your Name"
                   required
-                  disabled={isSubmitting}
                 />
               </div>
               <div className="form-group">
                 <input
                   type="email"
                   name="entry.818318423"
-                  value={formData.email}
-                  onChange={handleChange}
                   placeholder="Your Email"
                   required
-                  disabled={isSubmitting}
                 />
               </div>
               <div className="form-group">
                 <input
                   type="tel"
                   name="entry.1028741362"
-                  value={formData.phone}
-                  onChange={handleChange}
                   placeholder="Your Phone"
-                  disabled={isSubmitting}
                 />
               </div>
               <div className="form-group">
                 <input
                   type="text"
                   name="entry.1387483968"
-                  value={formData.subject}
-                  onChange={handleChange}
                   placeholder="Subject"
                   required
-                  disabled={isSubmitting}
                 />
               </div>
               <div className="form-group">
                 <textarea
                   name="entry.1496193312"
-                  value={formData.message}
-                  onChange={handleChange}
                   placeholder="Your Message"
                   required
-                  disabled={isSubmitting}
                 />
               </div>
               <motion.button
                 type="submit"
-                className={`submit-button ${isSubmitting ? 'submitting' : ''}`}
+                className="submit-button"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                disabled={isSubmitting}
               >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
+                Send Message
               </motion.button>
-              
-              {submitStatus === 'success' && (
-                <motion.div
-                  className="form-status success"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                >
-                  Thank you for your message! We'll get back to you soon.
-                </motion.div>
-              )}
             </form>
           </motion.div>
 
