@@ -13,17 +13,84 @@ const ContactPage = () => {
     message: ''
   });
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  // Google Form configuration
+  const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSejRoxN_4WLG-mT72dVbu_Wj88z9ZEh2IMrH4hKvcEbB1XrPg/formResponse';
+  
+  const GOOGLE_FORM_FIELDS = {
+    name: 'entry.528846873',      // Name field
+    email: 'entry.818318423',     // Email field
+    phone: 'entry.1028741362',    // Phone field
+    subject: 'entry.1387483968',  // Subject field
+    message: 'entry.1496193312'   // Message field
   };
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      // Create a hidden iframe
+      const iframe = document.createElement('iframe');
+      iframe.name = 'hidden_iframe';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+
+      // Create a hidden form
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = GOOGLE_FORM_URL;
+      form.target = 'hidden_iframe';  // Target the hidden iframe instead of _blank
+      form.style.display = 'none';
+
+      // Add form fields
+      Object.keys(formData).forEach(key => {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.name = GOOGLE_FORM_FIELDS[key];
+        input.value = formData[key];
+        form.appendChild(input);
+      });
+
+      // Add form to body and submit
+      document.body.appendChild(form);
+      form.submit();
+
+      // Remove form and iframe after submission
+      setTimeout(() => {
+        document.body.removeChild(form);
+        document.body.removeChild(iframe);
+      }, 100);
+
+      // Clear form and show success message after a brief delay
+      setTimeout(() => {
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: ''
+        });
+        setSubmitStatus('success');
+        setIsSubmitting(false);
+      }, 1000);
+
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitStatus('error');
+      setIsSubmitting(false);
+    }
   };
 
   const fadeInUp = {
@@ -161,6 +228,7 @@ const ContactPage = () => {
                   onChange={handleChange}
                   placeholder="Your Name"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
               <div className="form-group">
@@ -171,6 +239,7 @@ const ContactPage = () => {
                   onChange={handleChange}
                   placeholder="Your Email"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
               <div className="form-group">
@@ -180,6 +249,7 @@ const ContactPage = () => {
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="Your Phone"
+                  disabled={isSubmitting}
                 />
               </div>
               <div className="form-group">
@@ -190,6 +260,7 @@ const ContactPage = () => {
                   onChange={handleChange}
                   placeholder="Subject"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
               <div className="form-group">
@@ -199,11 +270,38 @@ const ContactPage = () => {
                   onChange={handleChange}
                   placeholder="Your Message"
                   required
-                ></textarea>
+                  disabled={isSubmitting}
+                />
               </div>
-              <button type="submit" className="submit-button">
-                Send Message
-              </button>
+              <motion.button
+                type="submit"
+                className={`submit-button ${isSubmitting ? 'submitting' : ''}`}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Sending...' : 'Send Message'}
+              </motion.button>
+              
+              {submitStatus === 'success' && (
+                <motion.div
+                  className="form-status success"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  Thank you for your message! We'll get back to you soon.
+                </motion.div>
+              )}
+              
+              {submitStatus === 'error' && (
+                <motion.div
+                  className="form-status error"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  There was an error sending your message. Please try again.
+                </motion.div>
+              )}
             </form>
           </motion.div>
 
