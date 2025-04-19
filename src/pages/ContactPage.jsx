@@ -17,7 +17,7 @@ const ContactPage = () => {
   const [submitStatus, setSubmitStatus] = useState(null);
 
   // Google Form configuration
-  const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSejRoxN_4WLG-mT72dVbu_Wj88z9ZEh2IMrH4hKvcEbB1XrPg/formResponse';
+  const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSejRoxN_4WLG-mT72dVbu_Wj88z9ZEh2IMrH4hKvcEbB1XrPg/formResponse';
   
   const GOOGLE_FORM_FIELDS = {
     name: 'entry.528846873',      // Name field
@@ -35,60 +35,50 @@ const ContactPage = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitStatus(null);
 
-    try {
-      // Create a temporary form
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = GOOGLE_FORM_URL;
-      form.target = '_blank';
-      form.style.display = 'none';
+    // Store form data before clearing
+    const submittedData = { ...formData };
 
-      // Add form fields
-      Object.keys(formData).forEach(key => {
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.name = GOOGLE_FORM_FIELDS[key];
-        input.value = formData[key];
-        form.appendChild(input);
-      });
+    // Clear form immediately
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      subject: '',
+      message: ''
+    });
 
-      // Add form to body
-      document.body.appendChild(form);
+    // Show success message
+    setSubmitStatus('success');
+    setIsSubmitting(false);
 
-      // Submit form
-      form.submit();
+    // Create the form element
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = GOOGLE_FORM_ACTION_URL;
+    form.target = '_blank';
 
-      // Remove form after submission
-      setTimeout(() => {
-        document.body.removeChild(form);
-      }, 100);
+    // Add the form fields
+    Object.keys(submittedData).forEach(key => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = GOOGLE_FORM_FIELDS[key];
+      input.value = submittedData[key];
+      form.appendChild(input);
+    });
 
-      // Clear form and show success message
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: ''
-      });
-      setSubmitStatus('success');
+    // Submit the form
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
 
-      // Close the new tab that was opened
-      setTimeout(() => {
-        window.focus();
-      }, 500);
-
-    } catch (error) {
-      console.error('Form submission error:', error);
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
+    // Close the submission tab after a delay
+    setTimeout(() => {
+      window.focus();
+    }, 1000);
   };
 
   const fadeInUp = {
